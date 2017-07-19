@@ -16,11 +16,21 @@ Users can search all of their recipes to find a specific recipe. Then what if yo
 ### Wireframes
 [Link to Mockup on FluidUI](https://www.fluidui.com/editor/live/preview/p_32GwCDtsKx1uQ82sA88v1zLGbIW1ztAo.1500470458555)
 
+[With Component Markup](https://www.dropbox.com/s/pzctqnd03n8f9z1/FoodAmore%20Framework%20Component%20MockUp.pdf?dl=0)
+
 
 ### Technologies
-Twilio API,
-Spoonacular API,
-and possibly more
++ Twilio API
++ Spoonacular API
++ and possibly more
 
 ### States
-Lists, Recipes,Ingredients, Instructions
+```javascript
+state = {
+  lists: [], //user lists used on welcome
+  recipes = [], //recipes to be shown, used by welcome & lists
+  recipe = [], //single recipe used at in the recipe detail
+  ingredients = [], //ingredients for a single recipe
+  instructions = [], //instructions for a single recipe
+}
+```
