@@ -2,17 +2,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #D50000;
+  background-color: #FE5F55;
 }
 
 .form_container {
-  background-color: #FFFFFF;
+  background-color: #FFFFF2;
   padding: 50px;
   margin: 50px;
 }
 
 .recipes_container {
-  background-color: #FFFFFF;
+  background-color: #FFFFF2;
   padding: 50px;
   margin: 50px;
 }
