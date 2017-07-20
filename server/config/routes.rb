@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :list_recipes
   namespace :api do
     namespace :v1 do
       post '/login', to: 'auth#create'

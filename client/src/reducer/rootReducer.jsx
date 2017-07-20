@@ -1,7 +1,10 @@
-const rootReducer = (state, action) => {
+const rootReducer = (state = {
+  user: {},
+  lists: [],
+}, action) => {
   switch (action.type) {
-    case 'expression':
-      return state
+    case 'SET_USER':
+      return { ...state, user: action.user }
       break;
     default:
       return state

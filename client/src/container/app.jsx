@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { setUser } from '../actions/index'
 
 import NavBar from '../component/navBar'
 import LoginForm from '../component/loginForm'
@@ -20,6 +24,7 @@ class App extends Component {
      Auth.currentUser()
      .then(user => {
        if (!user.error) {
+         this.props.setUser(user)
          this.setState({
            auth: {
              isLoggedIn: true,
@@ -40,10 +45,9 @@ class App extends Component {
     Auth.login(loginParams)
       .then( user => {
         if (!user.error) {
+          this.props.setUser(user)
           this.setState({
             auth: { isLoggedIn: true, user: user}
-          }, () => {
-            console.log(this.state)
           })
           localStorage.setItem('jwt', user.jwt )
         }
@@ -69,4 +73,10 @@ class App extends Component {
   }
 }
 
-export default App
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setUser: setUser
+  }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(App)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Checkbox, Container, Input, Label } from 'semantic-ui-react'
+import { Form, Button, Checkbox, Container, Input } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
 export default class SignUpForm extends Component {

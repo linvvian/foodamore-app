@@ -9,6 +9,11 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def show
+    user = User.find(params[:id])
+    
+  end
+
   private
   def user_params(*args)
     params.require(:user).permit(args)
