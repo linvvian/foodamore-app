@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Menu } from 'semantic-ui-react'
 
@@ -11,15 +11,29 @@ export default class NavBar extends Component {
   render(){
     const { activeItem } = this.state
     return(
-      <Menu className='style-override-navbar' >
+      <Menu>
         <Menu.Item>Welcome to FoodAmore</Menu.Item>
-        {/* <Menu.Item
+
+        <Menu.Item
+            as={NavLink}
+            to='/'
             name='home'
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
           >
             Home
-        </Menu.Item> */}
+        </Menu.Item>
+        <Menu.Item
+            as={NavLink}
+            to='/logout'
+            name='logout'
+            active={activeItem === 'logout'}
+            onClick={this.handleItemClick}
+            position='right'
+          >
+            Log Out
+        </Menu.Item>
+
       </Menu>
     )
   }

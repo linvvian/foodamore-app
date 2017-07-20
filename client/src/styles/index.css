@@ -2,4 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #D50000;
+}
+
+.form_container {
+  background-color: #FFFFFF;
+  padding: 50px;
+  margin: 50px;
 }

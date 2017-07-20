@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Grid, Button, Form } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Container, Grid, Button, Form, Divider } from 'semantic-ui-react'
+import { withRouter, Link } from 'react-router-dom'
 
 class LoginForm extends Component {
   state = {
@@ -15,13 +15,15 @@ class LoginForm extends Component {
     })
   }
 
-  handleOnSubmit = (event, data) => {
+  handleOnSubmit = (event) => {
     event.preventDefault()
+    this.props.authLogin(this.state)
+    this.props.history.push('/')
   }
 
   render(){
     return(
-      <div>
+      <Container className='form_container'>
         <Grid>
           <Grid.Column>
             <Form onSubmit={this.handleOnSubmit}>
@@ -41,14 +43,15 @@ class LoginForm extends Component {
                 />
               </Form.Field>
 
-              <Button type='submit'>Submit</Button>
+              <Button type='submit' fluid>Submit</Button>
             </Form>
-            <Link to='/signup'>Or Sign Up</Link>
+            <Divider horizontal>Or</Divider>
+            <Button as={Link} to='/signup' fluid>Or Sign Up</Button>
           </Grid.Column>
         </Grid>
-      </div>
+      </Container>
     )
   }
 }
 
-export default LoginForm
+export default withRouter(LoginForm)

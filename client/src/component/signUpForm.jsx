@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Checkbox, Grid, Input } from 'semantic-ui-react'
+import { Form, Button, Checkbox, Container, Input, Label } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
 export default class SignUpForm extends Component {
@@ -39,53 +39,52 @@ export default class SignUpForm extends Component {
   render(){
     return(
       <div>
-        <Grid>
+        <Container className='form_container'>
+          <h1>Create An Account</h1>
           <Form onSubmit={this.handleOnSubmit}>
-            <Grid.Column>
-              <Form.Field>
-                <Input type='text' placeholder='name'
-                name='name'
-                value={this.state.name}
-                onChange={this.handleOnChange}
-                required={true}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Input type='text' placeholder='email'
-                name='email'
-                value={this.state.email}
-                onChange={this.handleOnChange}
-                required={true}
-                />
-              </Form.Field>
-              <Form.Group>
-                <Form.Field>
-                  <Input type='password' placeholder='password'
-                  name='password'
-                  value={this.state.password}
-                  onChange={this.handleOnChange}
-                  required={true}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Input type='password' placeholder='password confirmation'
-                  name='password_confirmation'
-                  value={this.state.password_confirmation}
-                  onChange={this.handleOnChange}
-                  required={true}
-                  />
-                </Form.Field>
-              </Form.Group>
-              <Form.Field
-                control={Checkbox}
-                name='isChecked'
-                label={{ children: 'I agree to the Terms and Conditions' }}
-                onChange={this.handleOnChange}
+            <Form.Field>
+              <Input type='text' placeholder='name'
+              name='name'
+              value={this.state.name}
+              onChange={this.handleOnChange}
+              required={true}
               />
-              <Button type='submit'>Submit</Button>
-            </Grid.Column>
+            </Form.Field>
+            <Form.Field>
+              <Input type='text' placeholder='email'
+              name='email'
+              value={this.state.email}
+              onChange={this.handleOnChange}
+              required={true}
+              />
+            </Form.Field>
+            <Form.Group widths='equal'>
+              <Form.Field>
+                <Input type='password' placeholder='password'
+                name='password'
+                value={this.state.password}
+                onChange={this.handleOnChange}
+                required={true}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Input type='password' placeholder='password confirmation'
+                name='password_confirmation'
+                value={this.state.password_confirmation}
+                onChange={this.handleOnChange}
+                required={true}
+                />
+              </Form.Field>
+            </Form.Group>
+            <Form.Field
+              control={Checkbox}
+              name='isChecked'
+              onChange={this.handleOnChange}
+              label={{ children: 'I agree to the Terms and Conditions' }}
+            />
+            <Button type='submit'>Submit</Button>
           </Form>
-        </Grid>
+        </Container>
       </div>
     )
   }

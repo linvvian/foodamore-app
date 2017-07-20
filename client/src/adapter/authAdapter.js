@@ -1,8 +1,8 @@
-const devUrl = 'http://localhost:3000/api/v1'
+const baseURL = 'http://localhost:3000/api/v1'
 
 export default class AuthAdapter {
   static login (loginParams) {
-    return fetch(`${prodUrl}/login`, {
+    return fetch(`${baseURL}/login`, {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(loginParams)
@@ -10,7 +10,7 @@ export default class AuthAdapter {
   }
 
   static currentUser () {
-    return fetch(`${prodUrl}/me`, {
+    return fetch(`${baseURL}/me`, {
       headers: headers()
     }).then(res => res.json())
   }
