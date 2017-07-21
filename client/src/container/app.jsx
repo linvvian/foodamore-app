@@ -7,7 +7,7 @@ import { setUser } from '../actions'
 
 import NavBar from '../component/navBar'
 import LoginForm from '../component/loginForm'
-import SignUpForm from '../component/signUpForm'
+import SignUpForm from './signUpForm'
 import DashBoard from '../container/dashboardContainer'
 import Auth from '../adapter/authAdapter'
 

@@ -7,7 +7,7 @@ import RecipeCard from '../component/recipeCard'
 class RecipesContainer extends Component {
   loading = () => {
     if (this.props.recipes){
-      return this.props.recipes.map(recipe => <RecipeCard {...recipe} />)
+      return this.props.recipes.map(recipe => <RecipeCard key={recipe.id} {...recipe} />)
     } else {
       return <Loader active />
     }

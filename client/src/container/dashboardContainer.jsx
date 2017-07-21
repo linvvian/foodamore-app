@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import SideBar from '../component/dashboardSidebar'
 import RecipesContainer from './recipeListContainer'
+import NewRecipeForm from '../component/newRecipeForm'
 import UserAdapter from '../adapter/userAdapter'
 import * as actions from '../actions'
 
@@ -23,6 +24,8 @@ class DashBoard extends Component {
     switch (this.state.activeItem) {
       case 'all recipes':
         return <RecipesContainer />
+      case 'new recipe':
+        return <NewRecipeForm />
       default:
 
     }
@@ -31,7 +34,7 @@ class DashBoard extends Component {
   render(){
     return(
       <div className='dashboard_container'>
-        <Grid column={2}>
+        <Grid>
           <Grid.Row columns={2}>
             <Grid.Column width={3}>
               <SideBar activeItem={this.activeItem}/>
