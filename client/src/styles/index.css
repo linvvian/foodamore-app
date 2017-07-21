@@ -11,8 +11,16 @@ body {
   margin: 50px;
 }
 
+.dashboard_container {
+  margin: 50px;
+}
+
 .recipes_container {
   background-color: #FFFFF2;
   padding: 50px;
-  margin: 50px;
+}
+
+.recipecard_image {
+  height: 250px;
+  width: 300px;
 }

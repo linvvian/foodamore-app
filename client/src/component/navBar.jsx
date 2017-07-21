@@ -25,10 +25,10 @@ export default class NavBar extends Component {
         </Menu.Item>
         <Menu.Item
             as={NavLink}
-            to='/logout'
+            to='/login'
             name='logout'
             active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
+            onClick={this.props.handleLogout}
             position='right'
           >
             Log Out

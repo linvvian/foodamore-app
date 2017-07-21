@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setUser } from '../actions/index'
+import { setUser } from '../actions'
 
 import NavBar from '../component/navBar'
 import LoginForm from '../component/loginForm'
@@ -58,7 +58,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar />
+          <NavBar handleLogout={this.logout}/>
           {/* <Route exact path='/' render={()=>{
               return this.state.auth.isLoggedIn ? <DashBoard /> : <Redirect to="/login"/>
             }} /> */}
