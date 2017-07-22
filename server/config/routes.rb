@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :recipe_users
+  resources :instructions
   resources :list_recipes
   namespace :api do
     namespace :v1 do

@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Loader } from 'semantic-ui-react'
+import { Container, Loader, Card } from 'semantic-ui-react'
 
 import RecipeCard from '../component/recipeCard'
+import * as actions from '../actions'
 
 class RecipesContainer extends Component {
+  componentWillMount = () => {
+    this.props.fetchUserRecipes(this.props.user.id)
+  }
+
   loading = () => {
     if (this.props.recipes){
       return this.props.recipes.map(recipe => <RecipeCard key={recipe.id} {...recipe} />)
@@ -16,14 +21,16 @@ class RecipesContainer extends Component {
   render(){
     return(
       <Container className='recipes_container' fluid>
-        {this.loading()}
+        <Card.Group>
+          {this.loading()}
+        </Card.Group>
       </Container>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return { recipes: state.recipes }
+  return { recipes: state.recipes, user: state.user }
 }
 
-export default connect(mapStateToProps)(RecipesContainer)
+export default connect(mapStateToProps, actions)(RecipesContainer)

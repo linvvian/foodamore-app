@@ -4,7 +4,7 @@ class Api::V1::AuthController < ApplicationController
   def show
     render json: {
       id: current_user.id,
-      email: current_user.email
+      name: current_user.name
     }
   end
 
@@ -12,7 +12,7 @@ class Api::V1::AuthController < ApplicationController
     user = User.find_by(email: params[:email])
     if user.present? && user.authenticate(params[:password])
       created_jwt = issue_token({id: user.id})
-      render json: {id: user.id, email: user.email, jwt: created_jwt}
+      render json: {id: user.id, name: user.name, jwt: created_jwt}
     else
       render json: {
         error: 'Username or password incorrect'

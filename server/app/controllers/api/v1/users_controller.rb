@@ -1,9 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   def create
-    user = User.new(user_params(:name, :email, :password))
+    user = User.new(user_params(:name, :email, :password_confirmation))
     user.password = params[:password]
     if user.save
-      render json: { status: 200 }
+      created_jwt = issue_token({id: user.id})
+      render json: { id: user.id, jwt: created_jwt, name: user.name }
     else
       render json: { message: user.errors.full_message, status: 501 }
     end

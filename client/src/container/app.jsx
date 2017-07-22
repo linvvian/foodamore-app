@@ -25,6 +25,7 @@ class App extends Component {
      .then(user => {
        if (!user.error) {
          this.props.setUser(user)
+         console.log('here', user)
          this.setState({
            auth: {
              isLoggedIn: true,
@@ -51,7 +52,7 @@ class App extends Component {
           })
           localStorage.setItem('jwt', user.jwt )
         }
-      })
+      }).catch(error => console.log(error.message))
   }
 
   render() {
@@ -59,10 +60,10 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar handleLogout={this.logout}/>
-          {/* <Route exact path='/' render={()=>{
+          <Route exact path='/' render={()=>{
               return this.state.auth.isLoggedIn ? <DashBoard /> : <Redirect to="/login"/>
-            }} /> */}
-          <Route exact path='/' component={DashBoard} />
+            }} />
+          {/* <Route exact path='/' component={DashBoard} /> */}
           <Route path='/signup' component={SignUpForm} />
           <Route path='/login' render={() => {
             return <LoginForm authLogin={this.logIn} />

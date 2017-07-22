@@ -4,7 +4,6 @@ import { Grid } from 'semantic-ui-react'
 import SideBar from '../component/dashboardSidebar'
 import RecipesContainer from './recipeListContainer'
 import NewRecipeForm from '../component/newRecipeForm'
-import UserAdapter from '../adapter/userAdapter'
 import * as actions from '../actions'
 
 class DashBoard extends Component {
@@ -13,11 +12,27 @@ class DashBoard extends Component {
   }
 
   componentDidMount(){
-    this.props.fetchUser()
+    this.props.fetchTags()
+    this.props.fetchUser(this.props.user.id)
   }
 
   activeItem = (name) => {
     this.setState({ activeItem: name })
+  }
+
+  handleRecipeSubmit = (recipe) => {
+    const obj = {
+      recipe: recipe,
+      user_id: this.props.user.id,
+    }
+    fetch('http://localhost:3000/api/v1/recipes', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(obj)
+    }).then(res => res.json())
+    .catch(error => console.log(error.message))
   }
 
   loadItem = () => {
@@ -25,19 +40,19 @@ class DashBoard extends Component {
       case 'all recipes':
         return <RecipesContainer />
       case 'new recipe':
-        return <NewRecipeForm />
+        return <NewRecipeForm submitNewRecipe={this.handleRecipeSubmit}/>
       default:
-
     }
   }
 
   render(){
     return(
       <div className='dashboard_container'>
+        <h2>Welcome {this.props.user.name}</h2>
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column width={3}>
-              <SideBar activeItem={this.activeItem}/>
+              <SideBar activeItem={this.activeItem} />
             </Grid.Column>
             <Grid.Column width={13}>
               {this.loadItem()}

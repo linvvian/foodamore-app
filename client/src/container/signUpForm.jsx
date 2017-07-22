@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Form, Button, Checkbox, Container, Input } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-export default class SignUpForm extends Component {
+import { setUser } from '../actions'
+import { Form, Button, Checkbox, Container, Input } from 'semantic-ui-react'
+
+class SignUpForm extends Component {
   state = {
     name: '',
     email: '',
@@ -20,8 +23,9 @@ export default class SignUpForm extends Component {
 
   handleOnSubmit = (event, data) => {
     event.preventDefault()
-    if (!this.state.isChecked)
+    if (!this.state.isChecked){
       alert('Need to agree')
+    }
 
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
@@ -29,10 +33,16 @@ export default class SignUpForm extends Component {
         'content-type': 'application/json',
       },
       body: JSON.stringify(this.state)
-    }).then(res => {
-      if (res.status === 200){
-        <Redirect to='/' />
+    }).then(res => res.json())
+    .then(user => {
+      console.log('here', user)
+      if (user.status === 200){
+        this.props.setUser(user)
+        localStorage.setItem('jwt', user.jwt )
+        this.props.history.push('/')
       }
+    }).catch((error) => {
+      console.log('sign up error', error.message)
     })
   }
 
@@ -89,3 +99,11 @@ export default class SignUpForm extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setUser: setUser
+  }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SignUpForm)
