@@ -47,7 +47,7 @@ class DashBoard extends Component {
 
   render(){
     return(
-      <div className='dashboard_container'>
+      <div className='dashboard_component'>
         <h2>Welcome {this.props.user.name}</h2>
         <Grid>
           <Grid.Row columns={2}>

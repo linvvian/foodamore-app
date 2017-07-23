@@ -21,6 +21,7 @@ export const postUser = (user) => {
 }
 
 export const setUser = (user) => {
+  console.log('setting user', user)
   return {
     type: 'SET_USER',
     user: user,

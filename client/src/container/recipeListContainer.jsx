@@ -20,7 +20,7 @@ class RecipesContainer extends Component {
 
   render(){
     return(
-      <Container className='recipes_container' fluid>
+      <Container className='container' fluid>
         <Card.Group>
           {this.loading()}
         </Card.Group>

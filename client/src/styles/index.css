@@ -15,13 +15,24 @@ body {
   margin: 50px;
 }
 
-.dashboard_container {
+.dashboard_component {
   margin: 50px;
 }
 
-.recipes_container {
+.container {
   background-color: #FFFFF2;
   padding: 50px;
+}
+
+.detailpage_container {
+  background-color: #FFFFF2;
+  padding: 35px 70px;
+}
+
+.tag_container {
+  margin: 30px;
+  padding-top: 10px;
+  padding-right: 10px;
 }
 
 .recipecard_image {
@@ -33,10 +44,29 @@ body {
   list-style-type: none;
 }
 
+.video_component {
+  align-items: center;
+}
+
 li {
   padding: 5px 0;
 }
 
 .button_basic {
   background-color: #33CA7F !important;
+}
+
+.tag_button {
+  background-color: #41D3BD !important;
+  display: inline-block !important;
+  padding: 15px 20px !important;
+  text-align: center;
+  border-radius: 15px !important;
+  box-shadow: 0 9px #999 !important;
+}
+
+.tag_button:active {
+  background-color: #41D3BD;
+  box-shadow: 0 5px #666 !important;
+  transform: translateY(4px);
 }
