@@ -66,8 +66,8 @@ export const fetchRecipe = (id) => {
 }
 
 export const updateRecipe = (recipe) => {
-  const recipeUpdated = fetch(`${baseURL}/recipes`, {
-    method: 'POST',
+  const recipeUpdated = fetch(`${baseURL}/recipes/${recipe.id}`, {
+    method: 'PUT',
     headers: headers(),
     body: JSON.stringify(recipe),
   })

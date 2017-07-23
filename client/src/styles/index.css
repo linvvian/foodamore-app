@@ -61,12 +61,12 @@ li {
   display: inline-block !important;
   padding: 15px 20px !important;
   text-align: center;
-  border-radius: 15px !important;
-  box-shadow: 0 9px #999 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 7px #999 !important;
 }
 
 .tag_button:active {
   background-color: #41D3BD;
-  box-shadow: 0 5px #666 !important;
-  transform: translateY(4px);
+  box-shadow: 0 3px #666 !important;
+  transform: translateY(3px);
 }

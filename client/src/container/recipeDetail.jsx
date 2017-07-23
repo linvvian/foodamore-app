@@ -3,12 +3,16 @@ import { connect } from 'react-redux'
 import { Grid, Container, Loader, Button, Divider, Segment, Table, Image, Icon } from 'semantic-ui-react'
 import ReactPlayer from 'react-player'
 
-import { fetchRecipe } from '../actions'
+import { fetchRecipe, updateRecipe } from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
 
 class RecipeDetail extends Component {
   componentWillMount = () => {
     this.props.fetchRecipe(this.props.match.params.recipeId)
+  }
+
+  onSubmitEdit = (recipe) => {
+    this.props.updateRecipe(recipe)
   }
 
   showNotes = () => {
@@ -30,7 +34,7 @@ class RecipeDetail extends Component {
 
     return (
       <div className='detailpage_container'>
-        <EditRecipeModal />
+        <EditRecipeModal onSubmitEdit={this.onSubmitEdit}/>
         <h1>{this.props.name.toUpperCase()}</h1>
         <Divider />
         <Image
@@ -89,7 +93,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchRecipe: (id) => {
       dispatch(fetchRecipe(id))
-    }
+    },
+    updateRecipe: (recipe) => {
+      dispatch(updateRecipe(recipe))
+    },
   }
 }
 

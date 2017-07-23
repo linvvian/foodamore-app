@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Button, Header, Icon, Modal, Form, Input, TextArea, Dropdown, Label } from 'semantic-ui-react'
-import { updateRecipe, fetchTags } from '../actions'
+import { fetchTags } from '../actions'
 
 class EditRecipeModal extends Component{
   state = {
@@ -55,7 +55,7 @@ class EditRecipeModal extends Component{
     if(name === 'instructions'){
       array[index].step = value
     } else {
-      array[index] = value
+      array[index].name = value
     }
     this.setState({
       [name]: array,
@@ -102,6 +102,11 @@ class EditRecipeModal extends Component{
     this.setState({
       [name]: this.state[name].concat(value)
     })
+  }
+
+  handleOnSubmitEdit = (event) => {
+    let recipe = {...this.state, id: this.props.recipe.id}
+    this.props.onSubmitEdit(recipe)
   }
 
   renderEditForm = () => {
@@ -152,14 +157,14 @@ class EditRecipeModal extends Component{
 
   render(){
     return(
-      <Modal trigger={<Button className='button_basic' primary floated='right'>Edit <Icon name='edit' /></Button>} closeIcon='close'>
+      <Modal trigger={<Button className='button_basic' primary floated='right'><Icon name='edit' />Edit</Button>} closeIcon='close'>
         <Header icon='archive' content='Edit Recipe' />
         <Modal.Content>
           {this.renderEditForm()}
         </Modal.Content>
         <Modal.Actions>
-          <Button primary className='button_basic'>
-            <Icon name='checkmark' /> Yes
+          <Button primary className='button_basic' onClick={this.handleOnSubmitEdit}>
+            <Icon name='checkmark' /> Submit
           </Button>
         </Modal.Actions>
       </Modal>
@@ -173,7 +178,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateRecipe,
     fetchTags,
   }, dispatch)
 }
