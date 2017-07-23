@@ -19,6 +19,9 @@ const rootReducer = (state = {
     case 'FETCH_ONE_RECIPE':
       return { ...state, recipe: action.payload }
       break;
+    case 'UPDATE_RECIPE':
+      return { ...state, recipe: action.recipe }
+      break;
     case 'FETCH_TAGS':
       return { ...state, tags: action.payload }
       break;

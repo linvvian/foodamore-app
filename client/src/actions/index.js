@@ -11,6 +11,7 @@ export const postUser = (user) => {
     if (user.status === 200){
       localStorage.setItem('jwt', user.jwt )
     }
+    return user
   })
   .catch((error) => console.log('sign up error', error.message))
   console.log(newUser)
@@ -61,6 +62,26 @@ export const fetchRecipe = (id) => {
   return {
     type: 'FETCH_ONE_RECIPE',
     payload: recipe,
+  }
+}
+
+export const updateRecipe = (recipe) => {
+  const recipeUpdated = fetch(`${baseURL}/recipes`, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(recipe),
+  })
+  .then(res => res.json())
+  .then(recipe => {
+    if(recipe.status === 200){
+      // history.push('')
+      return recipe
+    }
+  })
+  .catch((error) => console.log('update recipe', error.message))
+  return {
+    type: 'UPDATE_RECIPE',
+    recipe: recipeUpdated,
   }
 }
 

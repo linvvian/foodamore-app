@@ -12,8 +12,8 @@ class RecipeDetail extends Component {
   }
 
   showNotes = () => {
-    if(!this.props.notes) return
-    return <Segment color='teal'>{this.props.notes}</Segment>
+    if(!this.props.note) return
+    return <Segment color='teal'>{this.props.note}</Segment>
   }
 
   loadRecipeDetails = () => {

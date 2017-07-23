@@ -7,7 +7,7 @@ import * as actions from '../actions'
 
 class RecipesContainer extends Component {
   componentWillMount = () => {
-    this.props.fetchUserRecipes(this.props.user.id)
+    // this.props.fetchUserRecipes(this.props.user.id)
   }
 
   loading = () => {

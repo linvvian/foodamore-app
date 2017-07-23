@@ -67,10 +67,10 @@ class NewRecipeForm extends Component {
   }
 
   handleAddition = (e, { value }) => {
-  this.setState({
-    options: [{ text: value, value }, ...this.state.options],
-  })
-}
+    this.setState({
+      options: [{ text: value, value }, ...this.state.options],
+    })
+  }
 
   handleTagChange = (e, { value }) => {
     this.setState({ tags: value })
