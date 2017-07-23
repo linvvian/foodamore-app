@@ -24,3 +24,11 @@ body {
   height: 250px;
   width: 300px;
 }
+
+.instructions_list {
+  list-style-type: none;
+}
+
+li {
+  padding: 5px 0;
+}

@@ -12,6 +12,8 @@ class NewRecipeForm extends Component {
     video: '',
     tags: [],
     options: [],
+    ingredientsText: '',
+    instructionsText: '',
   }
 
   componentDidMount = () => {
@@ -39,7 +41,17 @@ class NewRecipeForm extends Component {
 
   handleOnSubmitRecipe = (event) => {
     event.preventDefault()
-    this.props.submitNewRecipe(this.state)
+    const recipe = {
+      name: this.state.name,
+      image: this.state.image,
+      note: this.state.note,
+      ingredients: this.state.ingredients.filter(ingredient => ingredient.trim() != ''),
+      instructions: this.state.instructions.filter(instruction => instruction.trim() != ''),
+      video: this.state.video,
+      tags: this.state.tags.filter(tag => tag.trim() != ''),
+    }
+
+    this.props.submitNewRecipe(recipe)
     this.setState({
       ...this.state,
       name: '',
@@ -49,6 +61,8 @@ class NewRecipeForm extends Component {
       instructions: [],
       video: '',
       tags: [],
+      ingredientsText: '',
+      instructionsText: '',
     })
   }
 
@@ -84,13 +98,13 @@ class NewRecipeForm extends Component {
           <Form.Field>
             <label>Ingredients (separate with enter)</label>
             <TextArea autoHeight placeholder='ingredients' name='ingredients'
-              onChange={this.handleTextAreaInput} required={true}
+              onChange={this.handleTextAreaInput} required={true} value={this.state.ingredientsText}
             />
           </Form.Field>
           <Form.Field>
             <label>Instructions (separate steps with enter)</label>
             <TextArea autoHeight placeholder='instructions' name='instructions'
-              onChange={this.handleTextAreaInput} required={true}
+              onChange={this.handleTextAreaInput} required={true} value={this.state.instructionsText}
             />
           </Form.Field>
           <Form.Field>
