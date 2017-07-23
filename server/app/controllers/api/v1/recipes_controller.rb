@@ -3,6 +3,11 @@ class Api::V1::RecipesController < ApplicationController
     render json: Recipe.all
   end
 
+  def show
+    recipe = Recipe.find(params[:id])
+    render json: recipe
+  end
+
   def create
     recipe = Recipe.new(recipe_params(:name, :image, :video, :note))
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import { setUser } from '../actions'
 
 import NavBar from '../component/navBar'
 import LoginForm from '../component/loginForm'
 import SignUpForm from './signUpForm'
+import RecipeDetail from './recipeDetail'
 import DashBoard from '../container/dashboardContainer'
 import Auth from '../adapter/authAdapter'
 
@@ -68,6 +68,7 @@ class App extends Component {
           <Route path='/login' render={() => {
             return <LoginForm authLogin={this.logIn} />
           }} />
+          <Route path='/recipes/:recipeId' component={RecipeDetail}/>
         </div>
       </Router>
     )
@@ -75,9 +76,11 @@ class App extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setUser: setUser
-  }, dispatch)
+  return {
+    setUser: () => {
+      dispatch(setUser())
+    }
+  }
 }
 
 export default connect(null, mapDispatchToProps)(App)

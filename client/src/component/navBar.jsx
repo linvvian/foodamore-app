@@ -11,8 +11,8 @@ export default class NavBar extends Component {
   render(){
     const { activeItem } = this.state
     return(
-      <Menu>
-        <Menu.Item>Welcome to FoodAmore</Menu.Item>
+      <Menu className='navbar_override'>
+        <Menu.Item className='navbar_link'>Welcome to FoodAmore</Menu.Item>
 
         <Menu.Item
             as={NavLink}
@@ -20,6 +20,7 @@ export default class NavBar extends Component {
             name='home'
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
+            className='navbar_link'
           >
             Home
         </Menu.Item>
@@ -30,6 +31,7 @@ export default class NavBar extends Component {
             active={activeItem === 'logout'}
             onClick={this.props.handleLogout}
             position='right'
+            className='navbar_link'
           >
             Log Out
         </Menu.Item>

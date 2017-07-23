@@ -45,10 +45,10 @@ class NewRecipeForm extends Component {
       name: this.state.name,
       image: this.state.image,
       note: this.state.note,
-      ingredients: this.state.ingredients.filter(ingredient => ingredient.trim() != ''),
-      instructions: this.state.instructions.filter(instruction => instruction.trim() != ''),
+      ingredients: this.state.ingredients.filter(ingredient => ingredient.trim() !== ''),
+      instructions: this.state.instructions.filter(instruction => instruction.trim() !== ''),
       video: this.state.video,
-      tags: this.state.tags.filter(tag => tag.trim() != ''),
+      tags: this.state.tags.filter(tag => tag.trim() !== ''),
     }
 
     this.props.submitNewRecipe(recipe)

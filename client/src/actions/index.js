@@ -1,5 +1,25 @@
 const baseURL = 'http://localhost:3000/api/v1'
 
+export const postUser = (user) => {
+  const newUser = fetch('http://localhost:3000/api/v1/users', {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(user)
+  })
+  .then(res => res.json())
+  .then(user => {
+    if (user.status === 200){
+      localStorage.setItem('jwt', user.jwt )
+    }
+  })
+  .catch((error) => console.log('sign up error', error.message))
+  console.log(newUser)
+  return {
+    type: 'POST_USER',
+    user: newUser,
+  }
+}
+
 export const setUser = (user) => {
   return {
     type: 'SET_USER',
@@ -12,9 +32,7 @@ export const fetchUser = (userId) => {
     headers: headers()
   }).then(res => res.json())
   .then(user => user)
-  .catch((error) => {
-    console.log(error.message)
-  })
+  .catch((error) => console.log('fetch user', error.message))
   return {
     type: 'FETCH_USER',
     payload: user
@@ -26,12 +44,22 @@ export const fetchUserRecipes = (userId) => {
     headers: headers()
   }).then(res => res.json())
   .then(user => user)
-  .catch((error) => {
-    console.log(error.message)
-  })
+  .catch((error) => console.log('fetch user recipes', error.message))
   return {
     type: 'FETCH_USER_RECIPES',
     payload: user.recipes
+  }
+}
+
+export const fetchRecipe = (id) => {
+  const recipe = fetch(`${baseURL}/recipes/${id}`, {
+    headers: headers()
+  }).then(res => res.json())
+  .then(recipe => recipe)
+  .catch((error) => console.log('fetch single recipe', error.message))
+  return {
+    type: 'FETCH_ONE_RECIPE',
+    payload: recipe,
   }
 }
 
@@ -40,9 +68,7 @@ export const fetchTags = () => {
     headers: headers()
   }).then(res => res.json())
   .then(tags => tags)
-  .catch((error) => {
-    console.log(error.message)
-  })
+  .catch((error) => console.log('fetch tags', error.message))
   return {
     type: 'FETCH_TAGS',
     payload: tags

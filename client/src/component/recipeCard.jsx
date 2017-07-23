@@ -1,7 +1,8 @@
 import React from 'react'
-import { Card, Image, Header, Modal, Button, Icon, Grid } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Card, Image, Header, Modal, Button, Icon } from 'semantic-ui-react'
 
-const RecipeCard = ({ name, note, ingredients, instructions }) => {
+const RecipeCard = ({ id, name, note, ingredients, instructions }) => {
   const showIngredients = ingredients.map(ingredient => <li key={ingredient.id}>{ingredient.name}</li>)
   const showInstructions = ingredients.map(instruction => <li key={instruction.id}>{instruction.name}</li>)
 
@@ -16,9 +17,9 @@ const RecipeCard = ({ name, note, ingredients, instructions }) => {
     } closeIcon='close'>
       <Modal.Header>
         <Modal.Actions>
-          <Button primary floated='right'>
-            Proceed <Icon name='right chevron' />
-          </Button>
+          <Link to={`/recipes/${id}`}><Button className='button_basic' primary floated='right'>
+            More <Icon name='right chevron' />
+          </Button></Link>
         </Modal.Actions>
         {name.toUpperCase()}
       </Modal.Header>
