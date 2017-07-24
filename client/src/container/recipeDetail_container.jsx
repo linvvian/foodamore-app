@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid, Container, Loader, Button, Divider, Segment, Table, Image, Icon } from 'semantic-ui-react'
 import ReactPlayer from 'react-player'
 
-import { fetchRecipe, updateRecipe } from '../actions'
+import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
 
 class RecipeDetail extends Component {
@@ -16,26 +16,26 @@ class RecipeDetail extends Component {
   }
 
   showNotes = () => {
-    if(!this.props.note) return
-    return <Segment color='teal'>{this.props.note}</Segment>
+    if(!this.props.recipe.note) return
+    return <Segment color='teal'>{this.props.recipe.note}</Segment>
   }
 
   loadRecipeDetails = () => {
-    if(!this.props.instructions || !this.props.ingredients) return <Loader active />
+    if(!this.props.recipe.instructions || !this.props.recipe.ingredients) return <Loader active />
 
-    const instructions = this.props.instructions.map(instruction => {
+    const instructions = this.props.recipe.instructions.map(instruction => {
       return(
       <Table.Row>
         <Table.Cell width={2}>Step {instruction.order}:</Table.Cell>
         <Table.Cell>{instruction.step}</Table.Cell>
       </Table.Row>
       )})
-    const ingredients = this.props.ingredients.map(ingredient => <li>{ingredient.name}</li>)
+    const ingredients = this.props.recipe.ingredients.map(ingredient => <li>{ingredient.name}</li>)
 
     return (
       <div className='detailpage_container'>
         <EditRecipeModal onSubmitEdit={this.onSubmitEdit}/>
-        <h1>{this.props.name.toUpperCase()}</h1>
+        <h1>{this.props.recipe.name.toUpperCase()}</h1>
         <Divider />
         <Image
           src='https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
@@ -59,10 +59,10 @@ class RecipeDetail extends Component {
   }
 
   loadTags = () => {
-    if(!this.props.tags) return
+    if(!this.props.recipe.tags) return
     return (
       <div className='tag_container'>
-        {this.props.tags.map(tag => <Button className='tag_button' primary><Icon name='tag' />{tag.name}</Button>)}
+        {this.props.recipe.tags.map(tag => <Button className='tag_button' primary><Icon name='tag' />{tag.name}</Button>)}
       </div>
     )
   }
@@ -86,18 +86,7 @@ class RecipeDetail extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { ...state.recipe }
+  return { recipe: state.recipe }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchRecipe: (id) => {
-      dispatch(fetchRecipe(id))
-    },
-    updateRecipe: (recipe) => {
-      dispatch(updateRecipe(recipe))
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail)
+export default connect(mapStateToProps, actions)(RecipeDetail)

@@ -6,11 +6,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/login', to: 'auth#create'
       get '/me', to: 'auth#show'
+      post '/signup', to: 'users#create'
       resources :ingredients
       resources :tags
       resources :recipes
       resources :lists
-      resources :users
+      resources :users, except: [:create]
     end
   end
 end

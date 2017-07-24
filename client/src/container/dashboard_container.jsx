@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import SideBar from '../component/dashboardSidebar'
-import RecipesContainer from './recipeListContainer'
-import NewRecipeForm from '../component/newRecipeForm'
+import RecipesContainer from './recipeList_container'
+import NewRecipeForm from '../component/newRecipe_form'
 import * as actions from '../actions'
 
 class DashBoard extends Component {
@@ -11,9 +11,11 @@ class DashBoard extends Component {
     activeItem: 'all recipes'
   }
 
-  componentDidMount(){
+  componentDidMount = () => {
+    this.props.setUser(this.props.user_id)
     this.props.fetchTags()
-    this.props.fetchUser(this.props.user.id)
+    this.props.fetchUser(this.props.user_id)
+    console.log('dashboard will mount', this.props)
   }
 
   activeItem = (name) => {
@@ -65,7 +67,7 @@ class DashBoard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user, lists: state.lists, recipes: state.recipes }
+  return { user_id: state.auth.id, user: state.user, lists: state.user.lists, recipes: state.user.recipes }
 }
 
 

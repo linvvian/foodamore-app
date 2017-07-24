@@ -4,68 +4,24 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { setUser } from '../actions'
 
-import NavBar from '../component/navBar'
-import LoginForm from '../component/loginForm'
-import SignUpForm from './signUpForm'
-import RecipeDetail from './recipeDetail'
-import DashBoard from '../container/dashboardContainer'
-import Auth from '../adapter/authAdapter'
+import NavBar from '../component/navbar'
+import LoginForm from '../component/login_form'
+import LogOut from '../component/auth/logout'
+import SignUpForm from './signUp_form'
+import RecipeDetail from './recipeDetail_container'
+import DashBoard from '../container/dashboard_container'
+import RequireAuth from '../component/auth/require_auth'
 
 class App extends Component {
-  state = {
-    auth: {
-      isLoggedIn: false,
-      user: '',
-    }
-  }
-
-  componentWillMount(){
-    if (localStorage.getItem('jwt')) {
-     Auth.currentUser()
-     .then(user => {
-       if (!user.error) {
-         this.props.setUser(user)
-         console.log('here', user)
-         this.setState({
-           auth: {
-             isLoggedIn: true,
-           }
-         })
-       }
-     })
-    }
-   }
-
-  logout(){
-    localStorage.removeItem('jwt')
-    this.setState({ auth: { isLoggedIn: false, user:{}}})
-  }
-
-  logIn = (loginParams) => {
-    Auth.login(loginParams)
-      .then( user => {
-        if (!user.error) {
-          this.props.setUser(user)
-          this.setState({
-            auth: { isLoggedIn: true }
-          })
-          localStorage.setItem('jwt', user.jwt )
-        }
-      }).catch(error => console.log(error.message))
-  }
-
   render() {
     return (
       <Router>
         <div className="App">
-          <NavBar handleLogout={this.logout}/>
-          <Route exact path='/' render={()=>{
-              return this.state.auth.isLoggedIn ? <DashBoard /> : <Redirect to="/login"/>
-            }} />
+          <NavBar />
+          <Route exact path='/' component={RequireAuth(DashBoard)} />
           <Route path='/signup' component={SignUpForm} />
-          <Route path='/login' render={() => {
-            return !this.state.auth.isLoggedIn ? <LoginForm authLogin={this.logIn} /> : <DashBoard />
-          }} />
+          <Route path='/login' component={LoginForm} />
+          <Route path='/logout' component={LogOut} />
           <Route path='/recipes/:recipeId' component={RecipeDetail}/>
         </div>
       </Router>

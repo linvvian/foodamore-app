@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import * as actions from '../actions'
+import PropTypes from 'prop-types'
 
-import { setUser, postUser } from '../actions'
 import { Form, Button, Checkbox, Container, Input } from 'semantic-ui-react'
 
 class SignUpForm extends Component {
@@ -10,7 +11,18 @@ class SignUpForm extends Component {
     name: '',
     email: '',
     password: '',
+    password_confirmation: '',
     isChecked: false,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  componentWillUpdate(nextProps) {
+    console.log("updating signin", nextProps, this.context)
+    if (nextProps.authenticated) {
+      this.context.router.history.push('/feature')
+    }
   }
 
   handleOnChange = (event, data) => {
@@ -26,8 +38,21 @@ class SignUpForm extends Component {
     if (!this.state.isChecked){
       alert('Need to agree')
     }
-    this.props.postUser(this.state)
-    this.props.history.push('/')
+    this.props.signupUser(this.state)
+  }
+
+  renderAlert () {
+    if (this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      )
+    } else if (this.state.password !== this.state.password_confirmation) {
+      <div className='alert alert-danger'>
+        <strong>Passwords must match</strong>
+      </div>
+    }
   }
 
   render(){
@@ -76,6 +101,7 @@ class SignUpForm extends Component {
               onChange={this.handleOnChange}
               label={{ children: 'I agree to the Terms and Conditions' }}
             />
+            {this.renderAlert()}
             <Button type='submit'>Submit</Button>
           </Form>
         </Container>
@@ -84,11 +110,8 @@ class SignUpForm extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setUser: setUser,
-    postUser: postUser,
-  }, dispatch)
+function mapStateToProps (state) {
+  return { errorMessage: state.auth.error, user_id: state.auth.id }
 }
 
-export default connect(null, mapDispatchToProps)(SignUpForm)
+export default connect(mapStateToProps, actions)(SignUpForm)

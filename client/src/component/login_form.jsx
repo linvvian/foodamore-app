@@ -1,14 +1,30 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { Container, Grid, Button, Form, Divider } from 'semantic-ui-react'
-import { withRouter, Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import * as actions from '../actions'
 
 class LoginForm extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   state = {
     email: '',
     password: '',
   }
 
+  componentWillUpdate(nextProps) {
+    console.log("updating signin", nextProps, this.context)
+    if (nextProps.authenticated) {
+      console.log('should redirect')
+      this.context.router.history.push('/')
+    }
+  }
+
   handleOnChange = (event) => {
+    event.preventDefault()
     const { name, value } = event.target
     this.setState({
       [name]: value,
@@ -17,8 +33,17 @@ class LoginForm extends Component {
 
   handleOnSubmit = (event) => {
     event.preventDefault()
-    this.props.authLogin(this.state)
-    this.props.history.push('/')
+    this.props.signinUser(this.state)
+  }
+
+  renderAlert () {
+    if (this.props.errorMessage) {
+      return (
+        <div className='alert alert-danger'>
+          <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      )
+    }
   }
 
   render(){
@@ -42,7 +67,7 @@ class LoginForm extends Component {
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
-
+              {this.renderAlert()}
               <Button type='submit' fluid>Submit</Button>
             </Form>
             <Divider horizontal>Or</Divider>
@@ -54,4 +79,8 @@ class LoginForm extends Component {
   }
 }
 
-export default withRouter(LoginForm)
+function mapStateToProps (state) {
+  return { errorMessage: state.auth.error, authenticated: state.auth.authenticated, user_id: state.auth.id }
+}
+
+export default connect(mapStateToProps, actions)(LoginForm)

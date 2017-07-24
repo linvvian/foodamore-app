@@ -2,10 +2,7 @@ class Api::V1::AuthController < ApplicationController
   before_action :authorize_user!, only: [:show]
 
   def show
-    render json: {
-      id: current_user.id,
-      name: current_user.name
-    }
+    render json: { id: current_user.id, message: 'Token is valid' }
   end
 
   def create

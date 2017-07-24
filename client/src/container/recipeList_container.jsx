@@ -6,9 +6,6 @@ import RecipeCard from '../component/recipeCard'
 import * as actions from '../actions'
 
 class RecipesContainer extends Component {
-  componentWillMount = () => {
-    // this.props.fetchUserRecipes(this.props.user.id)
-  }
 
   loading = () => {
     if (this.props.recipes){
@@ -30,7 +27,7 @@ class RecipesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { recipes: state.recipes, user: state.user }
+  return { recipes: state.user.recipes, user: state.user }
 }
 
 export default connect(mapStateToProps, actions)(RecipesContainer)

@@ -17,6 +17,7 @@ class EditRecipeModal extends Component{
   }
 
   renderOptionsFiltered = () => {
+    console.log(this.props)
     const allOptions = this.props.tags.map(tag => tag.name)
     const allTags = this.props.recipe.tags.map(tag => tag.name)
     const filteredOptions = allOptions.filter(tag => !allTags.includes(tag))
@@ -177,9 +178,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
+  return {
     fetchTags,
-  }, dispatch)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecipeModal)

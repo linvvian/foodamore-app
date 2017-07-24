@@ -1,106 +1,156 @@
-const baseURL = 'http://localhost:3000/api/v1'
+import axios from 'axios'
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR,
+  FETCH_MESSAGE,
+  SET_USER,
+  FETCH_USER,
+  FETCH_USER_RECIPES,
+  FETCH_TAGS,
+  FETCH_ONE_RECIPE,
+  UPDATE_RECIPE,
+} from './types'
 
-export const postUser = (user) => {
-  const newUser = fetch('http://localhost:3000/api/v1/users', {
-    method: 'POST',
-    headers: headers(),
-    body: JSON.stringify(user)
-  })
-  .then(res => res.json())
-  .then(user => {
-    if (user.status === 200){
-      localStorage.setItem('jwt', user.jwt )
-    }
-    return user
-  })
-  .catch((error) => console.log('sign up error', error.message))
-  console.log(newUser)
-  return {
-    type: 'POST_USER',
-    user: newUser,
+const ROOT_URL = 'http://localhost:3000/api/v1'
+
+export function signinUser ({ email, password }) {
+  return function (dispatch) {
+    // Submit email/password to the server
+    axios.post(`${ROOT_URL}/login`, { email, password })
+    .then(response => {
+      // If request is good...
+      // - Update state to indicate user is authenticated
+      console.log('from server on login', response)
+      dispatch({ type: AUTH_USER, id: response.data.id })
+      // - Save the JWT token
+      console.log('setting jwt')
+      localStorage.setItem('jwt', response.data.jwt)
+    })
   }
 }
 
-export const setUser = (user) => {
-  console.log('setting user', user)
+export function signupUser ({ name, email, password }) {
+  return function (dispatch) {
+    axios.post(`${ROOT_URL}/signup`, { name, email, password })
+      .then(response => {
+        dispatch({ type: AUTH_USER, id: response.data.id })
+        localStorage.setItem('jwt', response.data.jwt)
+      })
+
+  }
+}
+
+export function authError (error) {
   return {
-    type: 'SET_USER',
-    user: user,
+    type: AUTH_ERROR,
+    payload: error
+  }
+}
+
+export function signoutUser () {
+  localStorage.removeItem('jwt')
+  return { type: UNAUTH_USER }
+}
+
+export function fetchMessage () {
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/me`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_MESSAGE,
+        payload: response.data.message
+      })
+    })
+  }
+}
+
+export const setUser = (userId) => {
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/users/${userId}`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      console.log('setting user', response.data)
+      dispatch({
+        type: SET_USER,
+        user: response.data
+      })
+    })
   }
 }
 
 export const fetchUser = (userId) => {
-  const user = fetch(`${baseURL}/users/${userId}`, {
-    headers: headers()
-  }).then(res => res.json())
-  .then(user => user)
-  .catch((error) => console.log('fetch user', error.message))
-  return {
-    type: 'FETCH_USER',
-    payload: user
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/users/${userId}`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_USER,
+        payload: response.data
+      })
+    })
   }
 }
 
 export const fetchUserRecipes = (userId) => {
-  const user = fetch(`${baseURL}/users/${userId}`, {
-    headers: headers()
-  }).then(res => res.json())
-  .then(user => user)
-  .catch((error) => console.log('fetch user recipes', error.message))
-  return {
-    type: 'FETCH_USER_RECIPES',
-    payload: user.recipes
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/users/${userId}`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_USER_RECIPES,
+        payload: response.data.recipes
+      })
+    })
   }
 }
 
 export const fetchRecipe = (id) => {
-  const recipe = fetch(`${baseURL}/recipes/${id}`, {
-    headers: headers()
-  }).then(res => res.json())
-  .then(recipe => recipe)
-  .catch((error) => console.log('fetch single recipe', error.message))
-  return {
-    type: 'FETCH_ONE_RECIPE',
-    payload: recipe,
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/recipes/${id}`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      console.log('fetching recipe', response.data)
+      dispatch({
+        type: FETCH_ONE_RECIPE,
+        payload: response.data,
+      })
+    })
   }
 }
 
 export const updateRecipe = (recipe) => {
-  const recipeUpdated = fetch(`${baseURL}/recipes/${recipe.id}`, {
-    method: 'PUT',
-    headers: headers(),
-    body: JSON.stringify(recipe),
-  })
-  .then(res => res.json())
-  .then(recipe => {
-    if(recipe.status === 200){
-      // history.push('')
-      return recipe
-    }
-  })
-  .catch((error) => console.log('update recipe', error.message))
-  return {
-    type: 'UPDATE_RECIPE',
-    recipe: recipeUpdated,
+  return function (dispatch) {
+    axios.put(`${ROOT_URL}/recipes/${recipe.id}`, {
+      recipe,
+      headers: { authorization: localStorage.getItem('jwt') },
+    })
+    .then(response => {
+      dispatch({
+        type: UPDATE_RECIPE,
+        recipe: response.data,
+      })
+    })
   }
 }
 
 export const fetchTags = () => {
-  const tags = fetch(`${baseURL}/tags`, {
-    headers: headers()
-  }).then(res => res.json())
-  .then(tags => tags)
-  .catch((error) => console.log('fetch tags', error.message))
-  return {
-    type: 'FETCH_TAGS',
-    payload: tags
-  }
-}
-
-function headers () {
-  return {
-    'content-type': 'application/json',
-    'accept': 'application/json',
-    'Authorization': localStorage.getItem('jwt')
+  return function (dispatch) {
+    axios.get(`${ROOT_URL}/tags`, {
+      headers: { authorization: localStorage.getItem('jwt') },
+    })
+    .then(response => {
+      console.log('fetching tags', response.data)
+      dispatch({
+        type: FETCH_TAGS,
+        payload: response.data
+      })
+    })
   }
 }
