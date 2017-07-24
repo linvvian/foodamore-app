@@ -35,16 +35,16 @@ class Api::V1::RecipesController < ApplicationController
   def update
     recipe = Recipe.find(params[:id])
     tagsUpdated = []
-    params[:tags].each do |tag|
+    params[:recipe][:tags].each do |tag|
       tagsUpdated.push(Tag.find_or_create_by(name: tag[:name]))
     end
     instructionsUpdated = []
-    params[:instructions].each.with_index do |instruction, index|
+    params[:recipe][:instructions].each.with_index do |instruction, index|
       instructionsUpdated.push(Instruction.where({step: instruction[:step], recipe: recipe}).first_or_create(step: instruction[:step], order: index + 1, recipe: recipe))
     end
 
     ingredientsUpdated = []
-    params[:ingredients].each do |ingredient|
+    params[:recipe][:ingredients].each do |ingredient|
       ingredientsUpdated.push(Ingredient.where({name: ingredient[:name], recipe: recipe}).first_or_create(name: ingredient, recipe: recipe))
     end
 

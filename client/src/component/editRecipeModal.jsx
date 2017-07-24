@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import { Button, Header, Icon, Modal, Form, Input, TextArea, Dropdown, Label } from 'semantic-ui-react'
 import { fetchTags } from '../actions'
 
 class EditRecipeModal extends Component{
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   state = {
     name: '',
     image: '',
@@ -106,8 +111,14 @@ class EditRecipeModal extends Component{
   }
 
   handleOnSubmitEdit = (event) => {
-    let recipe = {...this.state, id: this.props.recipe.id}
+    let recipe = {
+      ...this.state,
+      ingredients: this.state.ingredients.filter(ingredient => ingredient.name.trim() !== ''),
+      instructions: this.state.instructions.filter(instruction => instruction.step.trim() !== ''),
+      id: this.props.recipe.id,
+    }
     this.props.onSubmitEdit(recipe)
+    this.context.router.history.push(`/recipes/${this.props.recipe.id}`)
   }
 
   renderEditForm = () => {
