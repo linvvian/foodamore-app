@@ -9,6 +9,11 @@ body {
   background-color: #FFFFF2 !important;
 }
 
+.searchbar_container {
+  background-color: #FFA69E;
+  padding: 20px 40px;
+}
+
 .form_container {
   background-color: #FFFFF2;
   padding: 50px;
@@ -16,7 +21,8 @@ body {
 }
 
 .dashboard_component {
-  margin: 50px;
+  margin-left: 50px;
+  margin-top: 50px;
 }
 
 .container {
@@ -54,6 +60,14 @@ li {
 
 .button_basic {
   background-color: #33CA7F !important;
+}
+
+#edit_text_button {
+  margin: 5px 10px;
+}
+
+.button_basic2 {
+  background-color: #41D3BD !important;
 }
 
 .tag_button {

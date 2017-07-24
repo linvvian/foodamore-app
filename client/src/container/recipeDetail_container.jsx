@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player'
 
 import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
+import SendText from '../component/sendText_modal'
 
 class RecipeDetail extends Component {
   componentWillMount = () => {
@@ -45,7 +46,7 @@ class RecipeDetail extends Component {
         <Divider hidden />
         {this.showNotes()}
         <Segment color='teal'>
-          <Button className='button_basic' primary floated='right'><Icon name='balance' />Convert</Button>
+          <SendText />
           <ul>{ingredients}</ul>
         </Segment>
         <Segment color='teal'>

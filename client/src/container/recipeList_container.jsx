@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Loader, Card } from 'semantic-ui-react'
-
+import SearchBar from '../component/searchbar'
 import RecipeCard from '../component/recipeCard'
 import * as actions from '../actions'
 
@@ -17,11 +17,16 @@ class RecipesContainer extends Component {
 
   render(){
     return(
-      <Container className='container' fluid>
-        <Card.Group>
-          {this.loading()}
-        </Card.Group>
-      </Container>
+      <div>
+        <div className='searchbar_container'>
+          <SearchBar />
+        </div>
+        <Container className='container' fluid>
+          <Card.Group>
+            {this.loading()}
+          </Card.Group>
+        </Container>
+      </div>
     )
   }
 }

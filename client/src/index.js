@@ -17,9 +17,11 @@ const store = createStore(rootReducer, composeWithDevTools(
 ))
 
 const token = localStorage.getItem('jwt')
+const id = localStorage.getItem('id')
 
 if (token) {
-  store.dispatch({ type: AUTH_USER })
+  console.log('valid token')
+  store.dispatch({ type: AUTH_USER, id: id })
 }
 
 ReactDOM.render(

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import SideBar from '../component/dashboard_sidebar'
-import SearchBar from '../component/searchbar'
 import RecipesContainer from './recipeList_container'
 import NewRecipeForm from '../component/newRecipe_form'
 import * as actions from '../actions'
@@ -44,11 +43,9 @@ class DashBoard extends Component {
   render(){
     return(
       <div className='dashboard_component'>
-        <SearchBar />
-        <h2>Welcome {this.props.user.name}</h2>
         <Grid>
           <Grid.Row columns={2}>
-            <Grid.Column width={3}>
+            <Grid.Column width={2}>
               <SideBar activeItem={this.activeItem} />
             </Grid.Column>
             <Grid.Column width={13}>

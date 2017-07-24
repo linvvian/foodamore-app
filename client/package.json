@@ -16,6 +16,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.11",
     "semantic-ui-react": "^0.71.1",
+    "twilio": "^3.5.0",
     "typeface-roboto": "^0.0.31"
   },
   "devDependencies": {

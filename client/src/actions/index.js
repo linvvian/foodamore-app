@@ -28,6 +28,7 @@ export function signinUser ({ email, password }) {
       // - Save the JWT token
       console.log('setting jwt')
       localStorage.setItem('jwt', response.data.jwt)
+      localStorage.setItem('id', response.data.id)
     })
   }
 }
@@ -38,6 +39,7 @@ export function signupUser ({ name, email, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER, id: response.data.id })
         localStorage.setItem('jwt', response.data.jwt)
+        localStorage.setItem('id', response.data.id)
       })
 
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 
 class NavBar extends Component {
   state = {}
@@ -17,10 +17,11 @@ class NavBar extends Component {
     return(
       <Menu pointing secondary className='navbar_override'>
 
-        <Menu.Item className='navbar_link'>FoodAmore</Menu.Item>
-        <Menu.Item as={NavLink} to='/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+        <Menu.Item><Icon name='food' /><Icon name='heart' /> FoodAmore</Menu.Item>
+        <Menu.Item as={NavLink} to='/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick} ><Icon name='home' /> Home</Menu.Item>
 
         <Menu.Menu position='right'>
+          <Menu.Item>Welcome! </Menu.Item>
           <Menu.Item as={NavLink} to='/logout' name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
         </Menu.Menu>
 

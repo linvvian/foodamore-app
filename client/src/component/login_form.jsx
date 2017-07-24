@@ -68,10 +68,10 @@ class LoginForm extends Component {
                 />
               </Form.Field>
               {this.renderAlert()}
-              <Button type='submit' fluid>Submit</Button>
+              <Button type='submit' className='button_basic' primary fluid>Submit</Button>
             </Form>
             <Divider horizontal>Or</Divider>
-            <Button as={Link} to='/signup' fluid>Or Sign Up</Button>
+            <Button as={Link} to='/signup' className='button_basic2' primary fluid>Or Sign Up</Button>
           </Grid.Column>
         </Grid>
       </Container>

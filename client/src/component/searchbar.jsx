@@ -16,7 +16,11 @@ class SearchBar extends Component {
   }
 
   render(){
-    return <Input fluid icon='search' placeholder='Search by recipe or ingredients...' value={this.state.searchTerm} onChange={this.handleSearchChange}/>
+    return (
+      <div className='serachbar_container'>
+        <Input fluid icon='search' placeholder='Search by recipe or ingredients...' value={this.state.searchTerm} onChange={this.handleSearchChange}/>
+      </div>
+    )
   }
 }
 
