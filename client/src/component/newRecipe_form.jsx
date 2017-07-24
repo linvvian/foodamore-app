@@ -33,9 +33,11 @@ class NewRecipeForm extends Component {
 
   handleTextAreaInput = (event, { name, value }) => {
     event.preventDefault()
+    const textInput = `${name}Text`
     const newValue = value.split('\n')
     this.setState({
       [name]: newValue,
+      [textInput]: value
     })
   }
 
@@ -122,7 +124,7 @@ class NewRecipeForm extends Component {
               onChange={this.handleTagChange}
             />
           </Form.Field>
-          <Button type='submit'>Save New Recipe</Button>
+          <Button primary className='button_basic' type='submit'>Save New Recipe</Button>
         </Form>
       </div>
     )

@@ -21,7 +21,7 @@ class Api::V1::RecipesController < ApplicationController
 
       user = User.find(params[:user_id])
       user.recipes << recipe
-      render json: { status: 200, message: "Saved Recipe" }
+      render json: recipe
     else
       render json: { message: recipe.errors.full_message }
     end

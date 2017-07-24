@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
-import SideBar from '../component/dashboardSidebar'
+import SideBar from '../component/dashboard_sidebar'
+import SearchBar from '../component/searchbar'
 import RecipesContainer from './recipeList_container'
 import NewRecipeForm from '../component/newRecipe_form'
 import * as actions from '../actions'
@@ -27,14 +28,7 @@ class DashBoard extends Component {
       recipe: recipe,
       user_id: this.props.user.id,
     }
-    fetch('http://localhost:3000/api/v1/recipes', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(obj)
-    }).then(res => res.json())
-    .catch(error => console.log(error.message))
+    this.props.createRecipe(obj)
   }
 
   loadItem = () => {
@@ -50,6 +44,7 @@ class DashBoard extends Component {
   render(){
     return(
       <div className='dashboard_component'>
+        <SearchBar />
         <h2>Welcome {this.props.user.name}</h2>
         <Grid>
           <Grid.Row columns={2}>

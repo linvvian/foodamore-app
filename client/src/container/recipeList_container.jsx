@@ -27,7 +27,10 @@ class RecipesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { recipes: state.user.recipes, user: state.user }
+  const recipes = state.searchTerm ? state.user.recipes.filter(recipe => {
+    return recipe.name.toLowerCase().includes(state.searchTerm) || recipe.ingredients.filter(ingredient => ingredient.name.includes(state.searchTerm))[0]
+  }) : state.user.recipes
+  return { recipes: recipes, user: state.user }
 }
 
 export default connect(mapStateToProps, actions)(RecipesContainer)

@@ -10,6 +10,8 @@ import {
   FETCH_TAGS,
   FETCH_ONE_RECIPE,
   UPDATE_RECIPE,
+  ADD_RECIPE,
+  SEARCH_TERM,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -110,6 +112,13 @@ export const fetchUserRecipes = (userId) => {
   }
 }
 
+export const searchTerm = (term) => {
+  return {
+    type: SEARCH_TERM,
+    payload: term,
+  }
+}
+
 export const fetchRecipe = (id) => {
   return function (dispatch) {
     axios.get(`${ROOT_URL}/recipes/${id}`, {
@@ -122,6 +131,19 @@ export const fetchRecipe = (id) => {
         payload: response.data,
       })
     })
+  }
+}
+
+export const createRecipe = ({recipe, user_id}) => {
+  return function (dispatch) {
+    axios.post(`${ROOT_URL}/recipes`, { recipe, user_id })
+    .then(response => {
+      dispatch({
+        type: ADD_RECIPE,
+        payload: response.data,
+      })
+    })
+    .catch(error => console.log(error.message))
   }
 }
 
