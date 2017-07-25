@@ -17,14 +17,9 @@ class RecipeDetail extends Component {
     this.props.fetchRecipe(this.props.match.params.recipeId)
   }
 
-  componentWillUpdate = (nextProps) => {
-    if(this.props !== nextProps){
-      this.props.fetchRecipe(this.props.match.params.recipeId)
-    }
-  }
-
   onSubmitEdit = (recipe) => {
     this.props.updateRecipe(recipe)
+    this.props.fetchRecipe(this.props.match.params.recipeId)
   }
 
   showNotes = () => {
