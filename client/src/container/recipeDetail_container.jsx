@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Loader, Button, Divider, Segment, Table, Image, Icon } from 'semantic-ui-react'
-import ReactPlayer from 'react-player'
+import { Grid, Loader, Button, Divider, Segment, Table, Image, Icon, Embed } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
 import * as actions from '../actions'
@@ -35,7 +34,7 @@ class RecipeDetail extends Component {
 
   showVideo = () => {
     if(!this.props.recipe.video) return
-    return <Segment color='teal'><ReactPlayer className='video_component' url={this.props.recipe.video} /></Segment>
+    return <Segment color='teal'><Embed className='video_component' url={this.props.recipe.video} /></Segment>
   }
 
   deleteRecipe = (event) => {
