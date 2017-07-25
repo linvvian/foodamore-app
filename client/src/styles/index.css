@@ -46,6 +46,15 @@ body {
   width: 300px;
 }
 
+#steps_modal {
+  height: 500px;
+  padding: 20px;
+}
+
+#step_text {
+  vertical-align: middle;
+}
+
 .instructions_list {
   list-style-type: none;
 }
