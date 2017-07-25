@@ -18,13 +18,6 @@ class DashBoard extends Component {
     console.log('dashboard will mount', this.props)
   }
 
-  componentWillUpdate = (nextProps) => {
-    if(this.props.recipes[-1] !== nextProps.recipes[-1]){
-      console.log('dashboard upating', this.props, nextProps)
-      // this.props.fetchUserRecipes(this.props.user_id)
-    }
-  }
-
   activeItem = (name) => {
     this.setState({ activeItem: name })
   }
