@@ -11,6 +11,7 @@ import {
   FETCH_ONE_RECIPE,
   UPDATE_RECIPE,
   ADD_RECIPE,
+  DELETE_RECIPE,
   SEARCH_TERM,
 } from './types'
 
@@ -18,14 +19,10 @@ const ROOT_URL = 'http://localhost:3000/api/v1'
 
 export function signinUser ({ email, password }) {
   return function (dispatch) {
-    // Submit email/password to the server
     axios.post(`${ROOT_URL}/login`, { email, password })
     .then(response => {
-      // If request is good...
-      // - Update state to indicate user is authenticated
       console.log('from server on login', response)
       dispatch({ type: AUTH_USER, id: response.data.id })
-      // - Save the JWT token
       console.log('setting jwt')
       localStorage.setItem('jwt', response.data.jwt)
       localStorage.setItem('id', response.data.id)
@@ -86,26 +83,13 @@ export const setUser = (userId) => {
   }
 }
 
-export const fetchUser = (userId) => {
-  return function (dispatch) {
-    axios.get(`${ROOT_URL}/users/${userId}`, {
-      headers: { authorization: localStorage.getItem('jwt') }
-    })
-    .then(response => {
-      dispatch({
-        type: FETCH_USER,
-        payload: response.data
-      })
-    })
-  }
-}
-
 export const fetchUserRecipes = (userId) => {
   return function (dispatch) {
     axios.get(`${ROOT_URL}/users/${userId}`, {
       headers: { authorization: localStorage.getItem('jwt') }
     })
     .then(response => {
+      console.log('fetching user recipes', response.data)
       dispatch({
         type: FETCH_USER_RECIPES,
         payload: response.data.recipes
@@ -158,9 +142,19 @@ export const updateRecipe = (recipe) => {
     .then(response => {
       dispatch({
         type: UPDATE_RECIPE,
-        recipe: response.data,
+        recipe: response.data.recipe,
       })
     })
+  }
+}
+
+export const deleteRecipe = (recipeId) => {
+  return function (dispatch) {
+    axios.delete(`${ROOT_URL}/recipes/${recipeId}`, { params: { id: recipeId } })
+    .then(response => dispatch({
+      type: DELETE_RECIPE,
+      payload: response.data,
+    }))
   }
 }
 

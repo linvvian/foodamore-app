@@ -54,9 +54,18 @@ class Api::V1::RecipesController < ApplicationController
     updatedRecipe[:ingredients] = ingredientsUpdated
 
     if recipe.update(updatedRecipe)
-      render json: { status: 200, message: "Recipe Updated" }
+      render json: { status: 200, message: "Recipe Updated", recipe: recipe }
     else
-      render json: { status: 401, message: recipe.errors.full_message }
+      render json: { message: recipe.errors.full_message }
+    end
+  end
+
+  def destroy
+    recipe = Recipe.find(params[:id])
+    if recipe.destroy
+      render json: { status: 200, message: "Recipe Deleted", id: params[:id] }
+    else
+      render json: { message: recipe.errors.full_message }
     end
   end
 

@@ -5,16 +5,17 @@ import {
   ADD_RECIPE,
   SEARCH_TERM,
   CLEAR_SEARCH,
+  DELETE_RECIPE,
 } from '../actions/types'
 
-export const recipes_listsReducer = (state={ lists:[], recipes: [], }, action) => {
+export const recipesReducer = (state=[], action) => {
   switch (action.type) {
-    case FETCH_USER:
-      return { ...state, lists: action.payload.lists, recipes: action.payload.recipes }
     case FETCH_USER_RECIPES:
-      return { ...state, recipes: action.payload }
+      return action.payload
+    case DELETE_RECIPE:
+      return state.filter(recipe => recipe.id !== action.payload.id)
     case ADD_RECIPE:
-      return { ...state, recipes: state.recipes.concat(action.payload) }
+      return state.concat(action.payload)
     default:
       return state
   }

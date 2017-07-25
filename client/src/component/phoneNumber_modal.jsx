@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Header, Icon, Modal, Input, Form } from 'semantic-ui-react'
+import { Button, Icon, Modal, Input, Form } from 'semantic-ui-react'
 
 class PhoneNumberModal extends Component {
   state = {

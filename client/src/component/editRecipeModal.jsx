@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { Button, Header, Icon, Modal, Form, Input, TextArea, Dropdown, Label } from 'semantic-ui-react'
 import { fetchTags } from '../actions'
@@ -22,7 +21,6 @@ class EditRecipeModal extends Component{
   }
 
   renderOptionsFiltered = () => {
-    console.log(this.props)
     const allOptions = this.props.tags.map(tag => tag.name)
     const allTags = this.props.recipe.tags.map(tag => tag.name)
     const filteredOptions = allOptions.filter(tag => !allTags.includes(tag))

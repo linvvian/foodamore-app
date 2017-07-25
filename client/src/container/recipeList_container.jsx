@@ -6,6 +6,12 @@ import RecipeCard from '../component/recipeCard'
 import * as actions from '../actions'
 
 class RecipesContainer extends Component {
+  componentWillUpdate = (nextProps) => {
+    if(this.props.recipes !== nextProps.recipes){
+      this.props.fetchUserRecipes(this.props.user.id)
+      console.log('recipe container fetching user recipes')
+    }
+  }
 
   loading = () => {
     if (this.props.recipes){
@@ -32,9 +38,10 @@ class RecipesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const recipes = state.searchTerm ? state.user.recipes.filter(recipe => {
+  console.log(state)
+  const recipes = state.searchTerm ? state.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(state.searchTerm) || recipe.ingredients.filter(ingredient => ingredient.name.includes(state.searchTerm))[0]
-  }) : state.user.recipes
+  }) : state.recipes
   return { recipes: recipes, user: state.user }
 }
 

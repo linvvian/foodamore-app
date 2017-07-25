@@ -1,6 +1,7 @@
 import {
   FETCH_ONE_RECIPE,
   UPDATE_RECIPE,
+  DELETE_RECIPE,
 } from '../actions/types'
 
 export default (state={}, action) => {

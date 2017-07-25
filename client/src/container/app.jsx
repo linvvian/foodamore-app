@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { setUser } from '../actions'
 
 import NavBar from '../component/navbar'
@@ -29,10 +28,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    setUser
-  }, dispatch)
-}
-
-export default connect(null, mapDispatchToProps)(App)
+export default App

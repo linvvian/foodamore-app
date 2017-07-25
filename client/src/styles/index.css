@@ -32,7 +32,7 @@ body {
 
 .detailpage_container {
   background-color: #FFFFF2;
-  padding: 35px 70px;
+  padding: 25px 70px 55px;
 }
 
 .tag_container {
@@ -64,6 +64,11 @@ li {
 
 #edit_text_button {
   margin: 5px 10px;
+}
+
+.delete_button {
+  background-color: #FE5F55 !important;
+  margin-bottom: 10px;
 }
 
 .button_basic2 {

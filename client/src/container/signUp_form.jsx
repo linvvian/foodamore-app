@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 import PropTypes from 'prop-types'
 
@@ -18,10 +17,11 @@ class SignUpForm extends Component {
   static contextTypes = {
     router: PropTypes.object
   }
+
   componentWillUpdate(nextProps) {
     console.log("updating signin", nextProps, this.context)
     if (nextProps.authenticated) {
-      this.context.router.history.push('/feature')
+      this.context.router.history.push('/')
     }
   }
 
@@ -102,7 +102,7 @@ class SignUpForm extends Component {
               label={{ children: 'I agree to the Terms and Conditions' }}
             />
             {this.renderAlert()}
-            <Button type='submit'>Submit</Button>
+            <Button className='button_basic' type='submit'>Submit</Button>
           </Form>
         </Container>
       </div>

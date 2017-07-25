@@ -1,15 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Container, Loader, Button, Divider, Segment, Table, Image, Icon } from 'semantic-ui-react'
+import { Grid, Loader, Button, Divider, Segment, Table, Image, Icon } from 'semantic-ui-react'
 import ReactPlayer from 'react-player'
+import PropTypes from 'prop-types'
 
 import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
+import ShowInstructionsModal from '../component/cookingInstructions_modal'
 import SendText from '../component/sendText_modal'
 
 class RecipeDetail extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   componentWillMount = () => {
     this.props.fetchRecipe(this.props.match.params.recipeId)
+  }
+
+  componentWillUpdate = (nextProps) => {
+    if(this.props !== nextProps){
+      this.props.fetchRecipe(this.props.match.params.recipeId)
+    }
   }
 
   onSubmitEdit = (recipe) => {
@@ -19,6 +31,18 @@ class RecipeDetail extends Component {
   showNotes = () => {
     if(!this.props.recipe.note) return
     return <Segment color='teal'>{this.props.recipe.note}</Segment>
+  }
+
+  showVideo = () => {
+    if(!this.props.recipe.video) return
+    return <Segment color='teal'><ReactPlayer className='video_component' url={this.props.recipe.video} /></Segment>
+  }
+
+  deleteRecipe = (event) => {
+    event.preventDefault()
+    if (!this.props.deleteRecipe(this.props.recipe.id)) {
+      this.context.router.history.push('/')
+    }
   }
 
   loadRecipeDetails = () => {
@@ -32,14 +56,16 @@ class RecipeDetail extends Component {
       </Table.Row>
       )})
     const ingredients = this.props.recipe.ingredients.map(ingredient => <li>{ingredient.name}</li>)
+    const showImage = this.props.recipe.image || 'https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
 
     return (
       <div className='detailpage_container'>
         <EditRecipeModal onSubmitEdit={this.onSubmitEdit}/>
+        <ShowInstructionsModal />
         <h1>{this.props.recipe.name.toUpperCase()}</h1>
         <Divider />
         <Image
-          src='https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
+          src={showImage}
           size='big'
           centered
         />
@@ -52,9 +78,8 @@ class RecipeDetail extends Component {
         <Segment color='teal'>
           <Table basic='very'><Table.Body>{instructions}</Table.Body></Table>
         </Segment>
-        <Segment color='teal'>
-          <ReactPlayer className='video_component' url='https://youtu.be/9I49eKTcIJA' />
-        </Segment>
+        {this.showVideo()}
+        <Button onClick={this.deleteRecipe} primary floated='right' className='delete_button'><Icon name='delete'/>Delete</Button>
       </div>
     )
   }

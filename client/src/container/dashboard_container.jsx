@@ -14,8 +14,15 @@ class DashBoard extends Component {
   componentDidMount = () => {
     this.props.setUser(this.props.user_id)
     this.props.fetchTags()
-    this.props.fetchUser(this.props.user_id)
+    this.props.fetchUserRecipes(this.props.user_id)
     console.log('dashboard will mount', this.props)
+  }
+
+  componentWillUpdate = (nextProps) => {
+    if(this.props.recipes[-1] !== nextProps.recipes[-1]){
+      console.log('dashboard upating', this.props, nextProps)
+      // this.props.fetchUserRecipes(this.props.user_id)
+    }
   }
 
   activeItem = (name) => {
@@ -59,7 +66,7 @@ class DashBoard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { user_id: state.auth.id, user: state.user, lists: state.user.lists, recipes: state.user.recipes }
+  return { user_id: state.auth.id, user: state.user, recipes: state.recipes }
 }
 
 

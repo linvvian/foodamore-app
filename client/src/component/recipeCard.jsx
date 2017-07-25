@@ -2,14 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Image, Header, Modal, Button, Icon } from 'semantic-ui-react'
 
-const RecipeCard = ({ id, name, note, ingredients, instructions }) => {
+const RecipeCard = ({ id, name, note, ingredients, instructions, image, video }) => {
   const showIngredients = ingredients.map(ingredient => <li key={ingredient.id}>{ingredient.name}</li>)
-  const showInstructions = ingredients.map(instruction => <li key={instruction.id}>{instruction.name}</li>)
+  const showInstructions = instructions.map(instruction => <li key={instruction.id}>{instruction.step}</li>)
+  const showImage = image || 'https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
 
   return(
     <Modal trigger={
       <Card as='button'>
-        <Image src='https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg' className='recipecard_image'/>
+        <Image src={showImage} className='recipecard_image'/>
         <Card.Content>
           <Header size='large' textAlign='center'>{name}</Header>
         </Card.Content>
@@ -26,7 +27,7 @@ const RecipeCard = ({ id, name, note, ingredients, instructions }) => {
       <Modal.Content image scrolling>
         <Image
           size='medium'
-          src='https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
+          src={showImage}
           wrapped
           floated='left'
         />
