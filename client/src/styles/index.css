@@ -46,6 +46,16 @@ body {
   width: 300px;
 }
 
+#timer_table {
+  height: 100px;
+  width: 140px;
+  text-align: center;
+}
+
+#timer_table td {
+  border: none !important;
+}
+
 #steps_modal {
   height: 500px;
   padding: 20px;
@@ -60,12 +70,12 @@ body {
   list-style-type: none;
 }
 
-.video_component {
-  align-items: center;
-}
-
 li {
   padding: 5px 0;
+}
+
+.checkbox_override {
+  margin: 5px;
 }
 
 .button_basic {

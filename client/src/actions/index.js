@@ -13,6 +13,8 @@ import {
   ADD_RECIPE,
   DELETE_RECIPE,
   SEARCH_TERM,
+  CREATE_LIST,
+  SET_LIST,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -170,5 +172,26 @@ export const fetchTags = () => {
         payload: response.data
       })
     })
+  }
+}
+
+export const createList = ({ name, recipes, user_id }) => {
+  return function (dispatch) {
+    axios.post(`${ROOT_URL}/lists`, { name, recipes, user_id })
+    .then(response => {
+      console.log('creating new list', response.data)
+      dispatch({
+        type: CREATE_LIST,
+        payload: response.data,
+      })
+    })
+  }
+}
+
+export const setLists = (lists) => {
+  console.log('setting lists action')
+  return {
+    type: SET_LIST,
+    payload: lists,
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Grid, Loader, Button, Divider, Segment, Table, Image, Icon, Embed } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 
@@ -7,6 +8,7 @@ import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
 import ShowInstructionsModal from '../component/cookingInstructions_modal'
 import SendText from '../component/sendText_modal'
+import DashBoard from './dashboard_container'
 
 class RecipeDetail extends Component {
   static contextTypes = {
@@ -82,7 +84,7 @@ class RecipeDetail extends Component {
     if(!this.props.recipe.tags) return
     return (
       <div className='tag_container'>
-        {this.props.recipe.tags.map(tag => <Button className='tag_button' primary><Icon name='tag' />{tag.name}</Button>)}
+        {this.props.recipe.tags.map(tag => <Link to={`/lists/${tag.id}`}><Button className='tag_button' primary ><Icon name='tag' />{tag.name}</Button></Link>)}
       </div>
     )
   }

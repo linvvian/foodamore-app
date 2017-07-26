@@ -6,6 +6,8 @@ import {
   SEARCH_TERM,
   CLEAR_SEARCH,
   DELETE_RECIPE,
+  CREATE_LIST,
+  SET_LIST,
 } from '../actions/types'
 
 export const recipesReducer = (state=[], action) => {
@@ -36,6 +38,17 @@ export const searchReducer = (state='', action) => {
       return action.payload
     case CLEAR_SEARCH:
       return ''
+    default:
+      return state
+  }
+}
+
+export const listReducer = (state=[], action) => {
+  switch (action.type) {
+    case CREATE_LIST:
+      return state.concat(action.payload)
+    case SET_LIST:
+      return action.payload
     default:
       return state
   }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Button, Icon, Modal, Input, Form } from 'semantic-ui-react'
+import { Button, Icon, Modal, Input, Form, Flag, Message } from 'semantic-ui-react'
 
 class PhoneNumberModal extends Component {
   state = {
     open: false,
+    isHidden: true,
+    isDisabled: true,
     first: '',
     second: '',
     third: '',
@@ -13,12 +15,24 @@ class PhoneNumberModal extends Component {
   closeAndSend = () => {
     this.setState({ open: false })
     const number = `+1${this.state.first}${this.state.second}${this.state.third}`
-    this.props.textList(number)
+    // this.props.textList(number)
   }
 
   handleOnChange = (event, { name, value }) => {
     this.setState({
       [name]: value,
+    }, () => {
+      const { first, second, third } = this.state
+      if (!first) {
+        this.setState({ isHidden: false })
+      } else {
+        this.setState({ isHidden: true })
+      }
+      if (!first || !second || !third) {
+        this.setState({ isDisabled: true, })
+      } else if (first && second && third){
+        this.setState({ isDisabled: false, })
+      }
     })
   }
 
@@ -36,10 +50,11 @@ class PhoneNumberModal extends Component {
       >
         <Modal.Header>Number</Modal.Header>
         <Modal.Content>
+          <Message warning content='All Required' hidden={this.state.isHidden}/>
           <Form>
             <Form.Group inline>
               <Form.Field>
-                <label>Phone Number</label>
+                <label>Number <Flag name='us' /> +1</label>
                 <Input placeholder='(xxx)' value={this.state.first} name='first' onChange={this.handleOnChange}/>
               </Form.Field>
               <Form.Field>
@@ -52,7 +67,7 @@ class PhoneNumberModal extends Component {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button primary className='button_basic' icon='check' content='Send' onClick={this.closeAndSend} />
+          <Button primary className='button_basic' icon='check' content='Send' disabled={this.state.isDisabled} onClick={this.closeAndSend} />
         </Modal.Actions>
       </Modal>
     )

@@ -7,7 +7,7 @@ import * as actions from '../actions'
 
 class RecipesContainer extends Component {
   componentWillUpdate = (nextProps) => {
-    if(this.props.recipes !== nextProps.recipes){
+    if(this.props.recipes.size !== nextProps.recipes.size){
       this.props.fetchUserRecipes(this.props.user.id)
       console.log('recipe container fetching user recipes')
     }

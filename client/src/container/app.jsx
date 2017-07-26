@@ -22,6 +22,9 @@ class App extends Component {
           <Route path='/login' component={LoginForm} />
           <Route path='/logout' component={LogOut} />
           <Route path='/recipes/:recipeId' component={RecipeDetail}/>
+          <Route path='/lists/:listId' render={() => {
+            <DashBoard activeItem='lists' />
+          }} />
         </div>
       </Router>
     )

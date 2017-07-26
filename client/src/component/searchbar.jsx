@@ -15,6 +15,10 @@ class SearchBar extends Component {
     this.props.searchTerm(data.value.toLowerCase())
   }
 
+  componentWillUnmount = () => {
+    this.props.searchTerm('')
+  }
+
   render(){
     return (
       <div className='serachbar_container'>

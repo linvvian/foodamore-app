@@ -4,6 +4,7 @@ import { Grid } from 'semantic-ui-react'
 import SideBar from '../component/dashboard_sidebar'
 import RecipesContainer from './recipeList_container'
 import NewRecipeForm from '../component/newRecipe_form'
+import ListContainer from './list_container'
 import * as actions from '../actions'
 
 class DashBoard extends Component {
@@ -36,6 +37,8 @@ class DashBoard extends Component {
         return <RecipesContainer />
       case 'new recipe':
         return <NewRecipeForm submitNewRecipe={this.handleRecipeSubmit}/>
+      case 'lists':
+        return <ListContainer />
       default:
     }
   }
@@ -45,10 +48,10 @@ class DashBoard extends Component {
       <div className='dashboard_component'>
         <Grid>
           <Grid.Row columns={2}>
-            <Grid.Column width={2}>
+            <Grid.Column width={3}>
               <SideBar activeItem={this.activeItem} />
             </Grid.Column>
-            <Grid.Column width={13}>
+            <Grid.Column width={12}>
               {this.loadItem()}
             </Grid.Column>
           </Grid.Row>
@@ -58,8 +61,23 @@ class DashBoard extends Component {
   }
 }
 
+const sortCallback = (a,b) => {
+  var nameA = a.name.toUpperCase()
+  var nameB = b.name.toUpperCase()
+  if (nameA < nameB) {
+    return -1
+  }
+  if (nameA > nameB) {
+    return 1
+  }
+  return 0
+}
+
 const mapStateToProps = (state) => {
-  return { user_id: state.auth.id, user: state.user, recipes: state.recipes }
+  let lists = state.tags.map(tag => {return { name: tag.name, recipes: state.recipes.filter(recipe => recipe.tags.map(t => t.name).includes(tag.name)) }})
+  lists = lists.filter(list => list.recipes[0] !== undefined).sort(sortCallback)
+
+  return { user_id: state.auth.id, user: state.user, recipes: state.recipes, lists: lists }
 }
 
 
