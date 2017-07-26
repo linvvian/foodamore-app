@@ -9,14 +9,22 @@ import * as actions from '../actions'
 
 class DashBoard extends Component {
   state = {
-    activeItem: 'all recipes'
+    activeItem: this.props.activeItem || 'all recipes'
   }
 
   componentDidMount = () => {
     this.props.setUser(this.props.user_id)
     this.props.fetchTags()
     this.props.fetchUserRecipes(this.props.user_id)
+    this.props.fetchUserLists(this.props.user_id)
     console.log('dashboard will mount', this.props)
+  }
+
+  componentWillUpdate = (nextProps) => {
+    if(this.props.lists.length !== nextProps.lists.length && nextProps.lists.length !== 0){
+      console.log('dashboard updating', this.props.lists.length, nextProps.lists.length)
+      this.props.setLists(nextProps.lists)
+    }
   }
 
   activeItem = (name) => {

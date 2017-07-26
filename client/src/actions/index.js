@@ -15,6 +15,7 @@ import {
   SEARCH_TERM,
   CREATE_LIST,
   SET_LIST,
+  FETCH_USER_LISTS,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -175,9 +176,24 @@ export const fetchTags = () => {
   }
 }
 
-export const createList = ({ name, recipes, user_id }) => {
+export const fetchUserLists = (userId) => {
   return function (dispatch) {
-    axios.post(`${ROOT_URL}/lists`, { name, recipes, user_id })
+    axios.get(`${ROOT_URL}/users/${userId}`, {
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      console.log('fetching user lists', response.data)
+      dispatch({
+        type: FETCH_USER_LISTS,
+        payload: response.data.lists
+      })
+    })
+  }
+}
+
+export const createList = (newList) => {
+  return function (dispatch) {
+    axios.post(`${ROOT_URL}/lists`, newList)
     .then(response => {
       console.log('creating new list', response.data)
       dispatch({

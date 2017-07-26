@@ -8,6 +8,7 @@ import {
   DELETE_RECIPE,
   CREATE_LIST,
   SET_LIST,
+  FETCH_USER_LISTS,
 } from '../actions/types'
 
 export const recipesReducer = (state=[], action) => {
@@ -49,6 +50,15 @@ export const listReducer = (state=[], action) => {
       return state.concat(action.payload)
     case SET_LIST:
       return action.payload
+    default:
+      return state
+  }
+}
+
+export const userListReducer = (state=[], action) => {
+  switch (action.type) {
+    case FETCH_USER_LISTS:
+      return state.concat(action.payload)
     default:
       return state
   }
