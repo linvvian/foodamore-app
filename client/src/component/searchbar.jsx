@@ -21,8 +21,8 @@ class SearchBar extends Component {
 
   render(){
     return (
-      <div className='serachbar_container'>
-        <Input fluid icon='search' placeholder='Search by recipe or ingredients...' value={this.state.searchTerm} onChange={this.handleSearchChange}/>
+      <div className='searchbar_container'>
+        <Input id='searchbar_input' fluid icon='search' placeholder='Search by recipe or ingredients...' value={this.state.searchTerm} onChange={this.handleSearchChange}/>
       </div>
     )
   }

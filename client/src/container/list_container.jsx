@@ -17,17 +17,19 @@ class ListContainer extends Component {
   renderLists = () => {
     if (this.props.lists){
       const lists = this.props.lists.map(list => {
-        const recipes = list.recipes.map(recipe => <Link to={`/recipes/${recipe.id}`}><p>{recipe.name}</p></Link>)
+        const recipes = list.recipes.map(recipe => <Link to={`/recipes/${recipe.id}`}><h3>{recipe.name}</h3></Link>)
         return(
+          <Segment>
           <Accordion>
             <Accordion.Title>
-              <Icon name='dropdown' />
-              {list.name}
+              <h2 id='list_name'><Icon name='dropdown' />
+              {list.name}</h2>
             </Accordion.Title>
             <Accordion.Content>
               {recipes}
             </Accordion.Content>
           </Accordion>
+          </Segment>
         )
       })
       return lists
@@ -40,9 +42,7 @@ class ListContainer extends Component {
     return(
       <Container className='container' fluid>
         <NewListModal newList={this.submitNewList} />
-        <Segment>
-          {this.renderLists()}
-        </Segment>
+        {this.renderLists()}
       </Container>
     )
   }

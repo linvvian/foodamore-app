@@ -15,7 +15,7 @@ class PhoneNumberModal extends Component {
   closeAndSend = () => {
     this.setState({ open: false })
     const number = `+1${this.state.first}${this.state.second}${this.state.third}`
-    // this.props.textList(number)
+    this.props.textList(number)
   }
 
   handleOnChange = (event, { name, value }) => {

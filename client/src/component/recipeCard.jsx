@@ -16,7 +16,7 @@ const RecipeCard = ({ id, name, note, ingredients, instructions, image, video })
           <Header size='large' textAlign='center'>{name}</Header>
         </Card.Content>
       </Card>
-    } closeIcon='close'>
+    } closeIcon='close' className='recipe_detail_modal'>
       <Modal.Header>
         <Modal.Actions>
           <Link to={`/recipes/${id}`}><Button className='button_basic' primary floated='right'>

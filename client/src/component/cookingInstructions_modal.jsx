@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Header, Icon, Modal, Form, Input, Grid, Segment } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Grid, Segment } from 'semantic-ui-react'
 
 import Timer from './timer'
 
@@ -24,25 +24,25 @@ class ShowInstructionsModal extends Component {
     const { stepIndex } = this.state
     const max = this.props.instructions.length
     return(
-      <Modal trigger={<Button primary className='button_basic2' floated='right'><Icon name='food' /> Cook It</Button>}>
+      <Modal basic trigger={<Button primary className='button_basic2' floated='right'><Icon name='food' /> Cook It</Button>}>
         <Modal.Header>
           Steps
         </Modal.Header>
         <Modal.Content>
           <div id='steps_modal'>
           <Modal.Description>
-            <Header>{stepIndex + 1}/{max}</Header>
+            <Header id='instructions_modal_text_white'>{stepIndex + 1}/{max}</Header>
             <Grid verticalAlign='middle' column={3}>
-              <Grid.Column width={2}>
-                <Button circular primary id='arrow_button' name='back' className='button_basic' icon='arrow left' floated='left' onClick={this.nextStep} />
+              <Grid.Column width={2} onClick={this.nextStep}>
+                <Button circular primary id='arrow_button' name='back' className='button_basic' icon='arrow left' floated='left' />
               </Grid.Column>
               <Grid.Column width={12}>
                 <Segment stacked>
-                <h1>{this.props.instructions[stepIndex].step}</h1>
+                <h1 id='instructions_modal_text'>{this.props.instructions[stepIndex].step}</h1>
                 </Segment>
               </Grid.Column>
-              <Grid.Column width={2}>
-                <Button circular primary id='arrow_button' name='next' className='button_basic' icon='arrow right' floated='right' onClick={this.nextStep} />
+              <Grid.Column width={2} onClick={this.nextStep}>
+                <Button circular primary id='arrow_button' name='next' className='button_basic' icon='arrow right' floated='right' />
               </Grid.Column>
             </Grid>
           </Modal.Description>

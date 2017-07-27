@@ -2,20 +2,45 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: #FE5F55;
+  background-image: url('../assets/Madame Vo_Initial Photos-24.jpg');
+  height: 1000px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .navbar_override {
-  background-color: #FFFFF2 !important;
+  background: rgba(254, 95, 85, 0.8) !important;
+}
+
+.recipe_detail_modal {
+  padding-bottom: 20px;
 }
 
 .searchbar_container {
   background-color: #FFA69E;
-  padding: 20px 40px;
+  padding: 10px 30px;
+}
+
+#searchbar_input {
+  border-radius: 20px;
+  outline: 0;
+    padding: 10px 20px;
 }
 
 .form_container {
-  background-color: #FFFFF2;
+  background-color: rgba(255, 255, 242, 0.8);
   padding: 50px;
   margin: 50px;
 }
@@ -26,12 +51,12 @@ body {
 }
 
 .container {
-  background-color: #FFFFF2;
+  background-color: rgba(255, 255, 242, 0.8);
   padding: 50px;
 }
 
 .detailpage_container {
-  background-color: #FFFFF2;
+  background-color: rgba(255, 255, 242, 0.9);
   padding: 25px 70px 55px;
 }
 
@@ -48,17 +73,41 @@ body {
 
 #timer_table {
   height: 100px;
-  width: 140px;
+  width: 160px;
+  padding: 10px 10px 0;
   text-align: center;
+  border: 5px solid #FFFFFF;
 }
 
 #timer_table td {
   border: none !important;
 }
 
+#timer_input {
+  border: 1px !important;
+  text-align: right;
+}
+
+.timer_input {
+  width: 35px;
+  padding: 5px;
+  padding-left: 9px;
+  color: #000000 !important;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+}
+
 #steps_modal {
-  height: 500px;
-  padding: 20px;
+  height: 600px;
+  padding: 10px;
+}
+
+#instructions_modal_text {
+  color: #000000;
+}
+
+#instructions_modal_text_white {
+  color: #FFFFFF;
 }
 
 #arrow_button {
@@ -78,6 +127,10 @@ li {
   margin: 5px;
 }
 
+.close_button {
+  color: #FE5F55;
+}
+
 .button_basic {
   background-color: #33CA7F !important;
 }
@@ -93,6 +146,10 @@ li {
 
 .button_basic2 {
   background-color: #41D3BD !important;
+}
+
+.button_basic3 {
+  background-color: #FE5F55 !important;
 }
 
 .tag_button {

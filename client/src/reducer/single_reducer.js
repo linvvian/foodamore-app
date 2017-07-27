@@ -1,5 +1,4 @@
 import {
-  FETCH_USER,
   FETCH_USER_RECIPES,
   FETCH_TAGS,
   ADD_RECIPE,
@@ -58,7 +57,8 @@ export const listReducer = (state=[], action) => {
 export const userListReducer = (state=[], action) => {
   switch (action.type) {
     case FETCH_USER_LISTS:
-      return state.concat(action.payload)
+      action.payload
+      return action.payload
     default:
       return state
   }

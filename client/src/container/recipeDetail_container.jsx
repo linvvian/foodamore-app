@@ -8,7 +8,6 @@ import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
 import ShowInstructionsModal from '../component/cookingInstructions_modal'
 import SendText from '../component/sendText_modal'
-import DashBoard from './dashboard_container'
 
 class RecipeDetail extends Component {
   static contextTypes = {
@@ -87,6 +86,10 @@ class RecipeDetail extends Component {
         {this.props.recipe.tags.map(tag => <Link to={`/lists/${tag.id}`}><Button className='tag_button' primary ><Icon name='tag' />{tag.name}</Button></Link>)}
       </div>
     )
+  }
+
+  playAudio = () => {
+    this.setState({ isPlaying: true })
   }
 
   render(){

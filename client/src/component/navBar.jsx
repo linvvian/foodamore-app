@@ -15,9 +15,8 @@ class NavBar extends Component {
 
   render(){
     const { activeItem } = this.state
-    console.log(activeItem)
     return(
-      <Menu pointing secondary className='navbar_override'>
+      <Menu inverted pointing secondary size='large' className='navbar_override'>
 
         <Menu.Item><Icon name='food' /><Icon name='heart' /> FoodAmore</Menu.Item>
         <NavLink to='/' >
