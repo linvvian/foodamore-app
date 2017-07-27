@@ -15,8 +15,8 @@ class Profile extends Component {
     const audiosrc = '../assets/dog-howling-yapping-daniel_simon.mp3'
     return(
       <div>
-        <Sound url={audiosrc} playStatus={this.state.isPlaying} />
-        <button onClick={this.playAudio}>Play</button>
+        {/* <Sound url={audiosrc} playStatus={this.state.isPlaying} />
+        <button onClick={this.playAudio}>Play</button> */}
       </div>
     )
   }
