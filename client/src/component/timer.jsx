@@ -56,7 +56,6 @@ class Timer extends Component {
         timeUp: true,
         isPlaying: 'PLAYING',
       })
-      this.props.timerAlert()
       // alert("TIME")
     }
   }

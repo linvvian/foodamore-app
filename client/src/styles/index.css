@@ -45,7 +45,16 @@ canvas {
 #searchbar_input {
   border-radius: 20px;
   outline: 0;
-    padding: 10px 20px;
+  padding: 10px 20px;
+}
+
+.api_search_container {
+  padding: 10px 70px;
+}
+
+#api_search_input {
+  border-radius: 20px;
+  padding: 10px 20px;
 }
 
 .form_container {

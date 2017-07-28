@@ -5,6 +5,7 @@ import SideBar from '../component/dashboard_sidebar'
 import RecipesContainer from './recipeList_container'
 import NewRecipeForm from '../component/newRecipe_form'
 import ListContainer from './list_container'
+import DiscoverRecipeAPI from './recipe_api'
 import * as actions from '../actions'
 
 class DashBoard extends Component {
@@ -47,6 +48,8 @@ class DashBoard extends Component {
         return <NewRecipeForm submitNewRecipe={this.handleRecipeSubmit}/>
       case 'lists':
         return <ListContainer />
+      case 'discover':
+        return <DiscoverRecipeAPI />
       default:
     }
   }

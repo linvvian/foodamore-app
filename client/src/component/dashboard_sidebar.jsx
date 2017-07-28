@@ -14,6 +14,7 @@ class SideBar extends Component {
     return(
       <Menu vertical pointing>
         <Menu.Item name='all recipes' active={activeItem === 'all recipes'} onClick={this.handleItemClick} />
+        <Menu.Item name='discover' active={activeItem === 'discover recipe'} onClick={this.handleItemClick} />
         <Menu.Item name='lists' active={activeItem === 'lists'} onClick={this.handleItemClick} />
         <Menu.Item name='new recipe' active={activeItem === 'new recipe'} onClick={this.handleItemClick} />
       </Menu>

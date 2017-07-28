@@ -15,6 +15,7 @@ import {
   CREATE_LIST,
   SET_LIST,
   FETCH_USER_LISTS,
+  FETCH_API_RECIPES,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -208,5 +209,24 @@ export const setLists = (lists) => {
   return {
     type: SET_LIST,
     payload: lists,
+  }
+}
+
+export const fetchAPIRecipes = (query) => {
+  const searchQuery = query.replace(' ', '%20')
+  const API_KEY = '5f919a49ba17c91d6cc41c4cbb07ffb5'
+  return function (dispatch) {
+    axios.get(`https://community-food2fork.p.mashape.com/search?key=${API_KEY}&q=${searchQuery}`, {
+      headers: {
+        'X-Mashape-Key': 'GWwvmDTBc7mshNfEgeDqQnMKI0QUp1ymR5Tjsn5ju6XmN64hHM',
+        accept: 'application/json',
+      },
+    })
+    .then(response => {
+      dispatch({
+        type: FETCH_API_RECIPES,
+        payload: response.data.recipes
+      })
+    })
   }
 }

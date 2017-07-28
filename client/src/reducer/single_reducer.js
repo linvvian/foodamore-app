@@ -8,6 +8,8 @@ import {
   CREATE_LIST,
   SET_LIST,
   FETCH_USER_LISTS,
+  FETCH_API_RECIPES,
+  CLEAR_API,
 } from '../actions/types'
 
 export const recipesReducer = (state=[], action) => {
@@ -59,6 +61,18 @@ export const userListReducer = (state=[], action) => {
     case FETCH_USER_LISTS:
       action.payload
       return action.payload
+    default:
+      return state
+  }
+}
+
+export const apiRecipesReducer = (state=[], action) => {
+  switch (action.type) {
+    case FETCH_API_RECIPES:
+      console.log('here fetching api recipes', action.payload)
+      return action.payload
+    case CLEAR_API:
+      return []
     default:
       return state
   }
