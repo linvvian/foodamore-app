@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import * as actions from '../../actions'
 
-//This is a higher order component to authorize a user
 export default function(ComposedComponent) {
-  //use the context property to access the router history
   class Authentication extends Component {
     static contextTypes = {
       router: PropTypes.object
     }
 
     componentWillMount() {
+      this.props.fetchMessage()
       if (!this.props.authenticated) {
         this.context.router.history.push('/login')
+      } else if (localStorage.getItem('jwt')) {
+        this.props.setUser(localStorage.getItem('id'))
       }
     }
 
@@ -28,8 +30,8 @@ export default function(ComposedComponent) {
   }
 
   function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated }
+    return { authenticated: state.auth.authenticated, error: state.auth.error }
   }
 
-  return connect(mapStateToProps)(Authentication)
+  return connect(mapStateToProps, actions)(Authentication)
 }

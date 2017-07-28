@@ -54,6 +54,7 @@ export function authError (error) {
 
 export function signoutUser () {
   localStorage.removeItem('jwt')
+  localStorage.removeItem('id')
   return { type: UNAUTH_USER }
 }
 

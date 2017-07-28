@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Menu, Icon } from 'semantic-ui-react'
 
 class NavBar extends Component {
-  state = { activeItem: 'blah', }
+  state = { activeItem: 'blah', shouldShow: 'hidden'}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 

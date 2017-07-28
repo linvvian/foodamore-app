@@ -102,7 +102,7 @@ class SignUpForm extends Component {
               label={{ children: 'I agree to the Terms and Conditions' }}
             />
             {this.renderAlert()}
-            <Button className='button_basic' type='submit'>Submit</Button>
+            <Button primary className='button_basic' type='submit'>Submit</Button>
           </Form>
         </Container>
       </div>
@@ -111,7 +111,7 @@ class SignUpForm extends Component {
 }
 
 function mapStateToProps (state) {
-  return { errorMessage: state.auth.error, user_id: state.auth.id }
+  return { authenticated: state.auth.authenticated, errorMessage: state.auth.error, user_id: state.auth.id }
 }
 
 export default connect(mapStateToProps, actions)(SignUpForm)

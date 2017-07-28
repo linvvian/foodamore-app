@@ -14,7 +14,6 @@ class DashBoard extends Component {
   }
 
   componentDidMount = () => {
-    this.props.setUser(this.props.user_id)
     this.props.fetchTags()
     this.props.fetchUserRecipes(this.props.user_id)
     this.props.fetchUserLists(this.props.user_id)

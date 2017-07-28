@@ -20,7 +20,7 @@ class App extends Component {
           <Route path='/signup' component={SignUpForm} />
           <Route path='/login' component={LoginForm} />
           <Route path='/logout' component={LogOut} />
-          <Route path='/profile' component={Profile} />
+          <Route path='/profile' component={RequireAuth(Profile)} />
           <Route path='/recipes/:recipeId' component={RecipeDetail}/>
           <Route path='/lists/:listId' render={() => {
             return <DashBoard activeItem='lists' />
