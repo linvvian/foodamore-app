@@ -3,23 +3,10 @@ import { connect } from 'react-redux'
 import { Button, Header, Icon, Modal, Grid, Segment } from 'semantic-ui-react'
 
 import Timer from './timer'
-import CanvasComponent from './fireworks'
 
 class ShowInstructionsModal extends Component {
   state = {
     stepIndex: 0,
-    isShow: false,
-  }
-
-  timesUp = () => {
-    this.setState({
-      isShow: true,
-    })
-  }
-
-  showFireworks = () => {
-    if(this.state.isShow)
-      return <CanvasComponent />
   }
 
   nextStep = (event, { name }) => {
@@ -52,7 +39,6 @@ class ShowInstructionsModal extends Component {
               </Grid.Column>
               <Grid.Column width={12}>
                 <Segment stacked>
-                  {this.showFireworks()}
                 <h1 id='instructions_modal_text'>{this.props.instructions[stepIndex].step}</h1>
                 </Segment>
               </Grid.Column>
@@ -61,7 +47,7 @@ class ShowInstructionsModal extends Component {
               </Grid.Column>
             </Grid>
           </Modal.Description>
-          <Timer timerAlert={this.timesUp}/>
+          <Timer />
         </div>
         </Modal.Content>
       </Modal>

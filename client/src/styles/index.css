@@ -11,13 +11,22 @@ body {
 }
 
 canvas {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
-  width: 150vh;
+  height: 80vh;
+  width: 180vh;
+}
+
+.fireworks {
+  position: absolute;
+  top: 150px;
+  left: 100px;
+  height: 80vh;
+  width: 180vh;
+  background-color: black;
 }
 
 .navbar_override {
