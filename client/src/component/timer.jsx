@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Draggable from 'react-draggable'
+import Sound from 'react-sound'
 import { Button, Icon, Table, Input } from 'semantic-ui-react'
-import draw from './fireworks'
 
 class Timer extends Component {
   state = {
@@ -10,6 +10,8 @@ class Timer extends Component {
     isDisabled: false,
     isStartDisabled: true,
     isShown: 'visible',
+    isPlaying: 'PAUSED',
+    timeUp: false,
     time: {
       hours: 0,
       minutes: 0,
@@ -29,6 +31,7 @@ class Timer extends Component {
       isDisabled: true,
       isStartDisabled: true,
       isShown: 'hidden',
+      timeUp: false,
     })
     const { minutes, seconds, hours } = this.state.time
     if (seconds !== 0) {
@@ -49,11 +52,12 @@ class Timer extends Component {
     } else {
       this.setState({
         isDisabled: false,
-        isShown: 'visible'
+        isShown: 'visible',
+        timeUp: true,
+        isPlaying: 'PLAYING',
       })
-      alert("TIME")
-      const ctx = this.refs.canvas.getContext('2d')
-      ctx.fillRect(0,0, 100, 100)
+      this.props.timerAlert()
+      // alert("TIME")
     }
   }
 
@@ -91,6 +95,18 @@ class Timer extends Component {
         [name]: newValue,
       }
     })
+  }
+
+  resetTimer = () => {
+    this.setState({
+      isPlaying: 'PAUSED',
+    })
+  }
+
+  whichButton = () => {
+    if(this.state.timeUp) return <Button primary onClick={this.resetTimer}>Reset</Button>
+    if(this.state.isShown === 'hidden') return <Button primary>Pause</Button>
+    return <Button content='Start' primary className='button_basic3' disabled={this.state.isStartDisabled} onClick={this.startTimer}/>
   }
 
   load = () => {
@@ -146,7 +162,7 @@ class Timer extends Component {
           </Table.Row>
           <Table.Row>
             <Table.Cell as='td' colSpan={3} className='cell_span_two'>
-              <Button content='Start' primary className='button_basic3' disabled={this.state.isStartDisabled} onClick={this.startTimer}/>
+              {this.whichButton()}
             </Table.Cell>
           </Table.Row>
         </Table.Body>
@@ -154,8 +170,9 @@ class Timer extends Component {
   }
 
   render(){
+    const audiosrc = 'https://archive.org/download/StarWarsTheImperialMarchDarthVadersTheme/Star%20Wars-%20The%20Imperial%20March%20(Darth%20Vader\'s%20Theme).mp3'
     return(
-      <div><canvas ref="canvas" />
+      <div>
       <Draggable
         axis='both'
         handle=".handle"
@@ -165,6 +182,7 @@ class Timer extends Component {
         onDrag={this.handleDrag}
         onStop={this.handleStop}>
         <div>
+          <Sound url={audiosrc} playStatus={this.state.isPlaying} playFromPosition={9455} />
           <Table basic inverted id='timer_table' className="handle">
             {this.load()}
           </Table>
