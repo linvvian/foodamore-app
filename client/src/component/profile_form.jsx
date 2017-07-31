@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button, Loader } from 'semantic-ui-react'
+import { Form, Input, Button, Loader, Message } from 'semantic-ui-react'
 import * as actions from '../actions'
 
 class ProfileForm extends Component {
-  state = { name: '', email: '', password: '', password_confirmation: '',}
+  state = { name: '', email: '', old_password: '', password: '', password_confirmation: '', message: '', showAlert: 'hidden' }
 
   componentWillMount = () => {
     this.setState({
@@ -25,6 +25,12 @@ class ProfileForm extends Component {
     this.setState({
       [name]: value,
     })
+  }
+
+  handleOnSubmit = () => {
+    if (this.validate()) return false
+    this.props.updateUser({...this.state, id: this.props.user_id})
+    this.setState({ old_password: '', password: '', password_confirmation: '', message: '', showAlert: 'hidden' })
   }
 
   load = () => {
@@ -49,7 +55,15 @@ class ProfileForm extends Component {
           />
         </Form.Field>
         <Form.Field>
-          <Input type='password' placeholder='password'
+          <Input type='password' placeholder='old password'
+          name='old_password'
+          value={this.state.old_password}
+          onChange={this.handleOnChange}
+          required={true}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Input type='password' placeholder='new password'
           name='password'
           value={this.state.password}
           onChange={this.handleOnChange}
@@ -69,10 +83,21 @@ class ProfileForm extends Component {
     )
   }
 
+  validate = () => {
+    if (this.state.password !== this.state.password_confirmation) {
+      this.setState({ message: 'Passwords need to be the same', showAlert: false })
+      return true
+    } else {
+      this.setState({ message: undefined, showAlert: true })
+      return false
+    }
+  }
+
   render(){
     return(
       <div>
         {this.load()}
+        <Message warning hidden={this.state.showAlert}><Message.Header>{this.state.message}</Message.Header></Message>
       </div>
     )
   }

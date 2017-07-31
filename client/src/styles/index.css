@@ -22,8 +22,8 @@ canvas {
 
 .fireworks {
   position: absolute;
-  height: 72vh;
-  width: 172vh;
+  height: 80vh;
+  width: 180vh;
   background-color: black;
 }
 
@@ -34,8 +34,8 @@ canvas {
 .profile_container {
   height: 80vh;
   width: 180vh;
-  background: rgba(255, 255, 242, 0.4) !important;
   margin: 20px;
+  margin-left: 60px;
 }
 
 .profile_content_container {
@@ -43,7 +43,9 @@ canvas {
 }
 
 .update_form {
-  padding: 0 100px;
+  margin: 0 200px;
+  background: rgba(255, 255, 242, 0.5) !important;
+  padding: 100px 300px;
 }
 
 .navbar_override {

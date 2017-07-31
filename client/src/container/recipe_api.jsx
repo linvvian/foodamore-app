@@ -22,8 +22,8 @@ class DiscoverRecipeAPI extends Component {
     if (this.props.apiRecipes){
       return this.props.apiRecipes.map(recipe => {
         return (
-          <Link to={recipe.source_url} target='_blank'>
-            <Card key={recipe.recipe_id}>
+          <Link key={recipe.recipe_id} to={recipe.source_url} target='_blank'>
+            <Card>
               <Image src={recipe.image_url} />
               <Card.Content>
                 <Header size='large' textAlign='center'>{recipe.title}</Header>
@@ -33,8 +33,12 @@ class DiscoverRecipeAPI extends Component {
         )
       })
     } else {
-      return <Loader active />
+      return <Loader active inverted/>
     }
+  }
+
+  componentWillUnmount = () => {
+    this.props.clearSearchAPI()
   }
 
   render(){

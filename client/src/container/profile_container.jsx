@@ -31,7 +31,7 @@ class Profile extends Component {
       <div>
         <Button primary className='button_basic' onClick={this.toggleVisibility} icon='ellipsis vertical' />
         <Sidebar.Pushable as='div' className='profile_container'>
-          <Sidebar as={Menu} className='profile_menu' animation='push' width='thin' visible={visible} icon='labeled' vertical inverted>
+          <Sidebar as={Menu} className='profile_menu' animation='overlay' width='thin' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='profile' onClick={this.handleItemClick}>
               <Icon name='user' />
               Profile

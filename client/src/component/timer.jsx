@@ -6,7 +6,6 @@ import { Button, Icon, Table, Input } from 'semantic-ui-react'
 class Timer extends Component {
   state = {
     show: 'default',
-    timer: 'set',
     isDisabled: false,
     isStartDisabled: true,
     isShown: 'visible',
@@ -61,7 +60,7 @@ class Timer extends Component {
   }
 
   addTime = (event, { name, icon }) => {
-    const number = icon === 'add' ? this.state.time[name] + 1 : (this.state.time[name] === 0 ? 0 : this.state.time[name] - 1)
+    const number = icon === 'add' ? (this.state.time[name] === 59 ? 0 : this.state.time[name] + 1) : (this.state.time[name] === 0 ? 59 : this.state.time[name] - 1)
     this.setState({
       isStartDisabled: false,
       time: {
@@ -76,7 +75,7 @@ class Timer extends Component {
       time: {
         ...this.state.time,
         [name]: value,
-      }
+      },
     })
   }
 
@@ -104,7 +103,7 @@ class Timer extends Component {
 
   whichButton = () => {
     if(this.state.timeUp) return <Button primary onClick={this.resetTimer}>Reset</Button>
-    if(this.state.isShown === 'hidden') return <Button primary>Pause</Button>
+    if(this.state.isShown === 'hidden') return <Button primary className='button_basic3'>Pause</Button>
     return <Button content='Start' primary className='button_basic3' disabled={this.state.isStartDisabled} onClick={this.startTimer}/>
   }
 
@@ -139,8 +138,8 @@ class Timer extends Component {
             <Table.Cell><Button disabled={this.state.isDisabled} primary className='button_basic3' circular icon='add' name='seconds' onClick={this.addTime}/></Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>{hours}</Table.Cell>
-            <Table.Cell>{minutes}</Table.Cell>
+            <Table.Cell>{hours} {'  :'}</Table.Cell>
+            <Table.Cell>{minutes} {'  :'}</Table.Cell>
             <Table.Cell>{seconds}</Table.Cell>
           </Table.Row>
           <Table.Row>

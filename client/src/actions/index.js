@@ -16,6 +16,7 @@ import {
   SET_LIST,
   FETCH_USER_LISTS,
   FETCH_API_RECIPES,
+  CLEAR_API,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -84,6 +85,22 @@ export const setUser = (userId) => {
         user: response.data
       })
     })
+  }
+}
+
+export const updateUser = (user) => {
+  return function (dispatch) {
+    axios.put((`${ROOT_URL}/users/${user.id}`), {
+      user: user,
+      headers: { authorization: localStorage.getItem('jwt') }
+    })
+    .then(response => {
+      dispatch({
+        type: SET_USER,
+        user: response.data
+      })
+    })
+    .catch(error => false)
   }
 }
 
@@ -229,5 +246,11 @@ export const fetchAPIRecipes = (query) => {
         payload: response.data.recipes
       })
     })
+  }
+}
+
+export const clearSearchAPI = () => {
+  return {
+    type: CLEAR_API,
   }
 }

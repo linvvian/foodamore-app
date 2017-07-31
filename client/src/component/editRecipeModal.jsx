@@ -68,18 +68,18 @@ class EditRecipeModal extends Component{
 
   renderIngredientInputs = () => {
     return this.state.ingredients.map((ingredient, index) => {
-      return <Input name={index} value={ingredient.name} onChange={this.handleMultiInputChange} />
+      return <Input key={index} name={index} value={ingredient.name} onChange={this.handleMultiInputChange} />
     })
   }
 
   renderInstructionInputs = () => {
     return this.state.instructions.map((instruction, index) => {
-      return <TextArea name={index} value={instruction.step} onChange={this.handleMultiInputChange} />
+      return <TextArea key={index} name={index} value={instruction.step} onChange={this.handleMultiInputChange} />
     })
   }
 
   renderTags = () => {
-    return this.state.tags.map(tag => <Label><Icon name='tag' />{tag.name}<Icon name='delete' onClick={this.removeTag.bind(this, tag.name)}/></Label>)
+    return this.state.tags.map(tag => <Label key={tag.id}><Icon name='tag' />{tag.name}<Icon name='delete' onClick={this.removeTag.bind(this, tag.name)}/></Label>)
   }
 
   removeTag = (tagName) => {

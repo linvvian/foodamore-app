@@ -8,6 +8,8 @@ class CanvasComponent extends Component {
     this.refs.canvas.width = this.w
     this.refs.canvas.height = this.h
     this.nodes = []
+
+    if (this.ctx) return this.draw()
   }
 
   draw = () => {
@@ -126,15 +128,10 @@ class CanvasComponent extends Component {
     }
   }
 
-  load = () => {
-    if (this.ctx) return this.draw()
-  }
-
   render(){
     return (
       <div>
         <canvas ref='canvas' />
-        {this.load()}
       </div>
     )
   }

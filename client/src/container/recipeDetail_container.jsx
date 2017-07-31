@@ -45,12 +45,12 @@ class RecipeDetail extends Component {
 
     const instructions = this.props.recipe.instructions.map(instruction => {
       return(
-      <Table.Row>
+      <Table.Row key={instruction.order}>
         <Table.Cell width={2}>Step {instruction.order}:</Table.Cell>
         <Table.Cell>{instruction.step}</Table.Cell>
       </Table.Row>
       )})
-    const ingredients = this.props.recipe.ingredients.map(ingredient => <li>{ingredient.name}</li>)
+    const ingredients = this.props.recipe.ingredients.map(ingredient => <li key={ingredient.id}>{ingredient.name}</li>)
     const showImage = this.props.recipe.image || 'https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
 
     return (
@@ -83,7 +83,7 @@ class RecipeDetail extends Component {
     if(!this.props.recipe.tags) return
     return (
       <div className='tag_container'>
-        {this.props.recipe.tags.map(tag => <Link to={`/lists/${tag.id}`}><Button className='tag_button' primary ><Icon name='tag' />{tag.name}</Button></Link>)}
+        {this.props.recipe.tags.map(tag => <Link key={tag.id} to={`/lists/${tag.id}`}><Button className='tag_button' primary ><Icon name='tag' />{tag.name}</Button></Link>)}
       </div>
     )
   }
