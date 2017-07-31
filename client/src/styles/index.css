@@ -108,6 +108,10 @@ canvas {
   width: 300px;
 }
 
+.timer_div {
+  width: 160px;
+}
+
 #timer_table {
   height: 100px;
   width: 160px;
@@ -149,7 +153,10 @@ canvas {
 
 #arrow_button {
   vertical-align: middle !important;
-  margin: 160px 0;
+  margin-top: 120px;
+  margin-bottom: 130px;
+  height: 160px;
+  width: 50px;
 }
 
 .instructions_list {

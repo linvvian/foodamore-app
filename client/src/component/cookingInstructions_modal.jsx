@@ -13,6 +13,7 @@ class ShowInstructionsModal extends Component {
     const max = this.props.instructions.length - 1
     const step = this.state.stepIndex
     event.preventDefault()
+
     const number = name === 'next' ? (step === max ? 0 : step + 1) : (step === 0 ? max : step - 1)
 
     this.setState({
@@ -34,16 +35,16 @@ class ShowInstructionsModal extends Component {
           <Modal.Description>
             <Header id='instructions_modal_text_white'>{stepIndex + 1}/{max}</Header>
             <Grid verticalAlign='middle' column={3}>
-              <Grid.Column width={2} onClick={this.nextStep}>
-                <Button circular primary id='arrow_button' name='back' className='button_basic' icon='arrow left' floated='left' />
+              <Grid.Column as='div' width={2}>
+                <Button circular primary id='arrow_button' name='back' className='button_basic' icon='arrow left' floated='left' onClick={this.nextStep}/>
               </Grid.Column>
               <Grid.Column width={12}>
                 <Segment stacked>
                 <h1 id='instructions_modal_text'>{this.props.instructions[stepIndex].step}</h1>
                 </Segment>
               </Grid.Column>
-              <Grid.Column width={2} onClick={this.nextStep}>
-                <Button circular primary id='arrow_button' name='next' className='button_basic' icon='arrow right' floated='right' />
+              <Grid.Column as='div' width={2}>
+                <Button circular primary id='arrow_button' name='next' className='button_basic' icon='arrow right' floated='right' onClick={this.nextStep}/>
               </Grid.Column>
             </Grid>
           </Modal.Description>

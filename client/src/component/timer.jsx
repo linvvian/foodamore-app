@@ -10,7 +10,9 @@ class Timer extends Component {
     isStartDisabled: true,
     isShown: 'visible',
     isPlaying: 'PAUSED',
+    isPaused: false,
     timeUp: false,
+    playPosition: 9455,
     time: {
       hours: 0,
       minutes: 0,
@@ -26,6 +28,7 @@ class Timer extends Component {
   }
 
   startTimer = () => {
+    if (this.state.isPaused) return
     this.setState({
       isDisabled: true,
       isStartDisabled: true,
@@ -98,12 +101,33 @@ class Timer extends Component {
   resetTimer = () => {
     this.setState({
       isPlaying: 'PAUSED',
+      timeUp: false,
+      playPosition: 9455,
     })
+  }
+
+  onPlaying = ({ position, duration}) => {
+    this.setState({ playPosition: position })
+  }
+
+  pauseTimer = () => {
+    this.setState({ isPaused: !this.state.isPaused }, () => {
+      if (this.state.isPaused) {
+        this.setState({ isDisabled: false })
+      }
+      this.startTimer()
+    })
+  }
+
+  pauseUNPAUSE = () => {
+    if (this.state.isPaused)
+      return <Button primary className='button_basic3' onClick={this.pauseTimer}>Start</Button>
+    return <Button primary className='button_basic3' onClick={this.pauseTimer}>Pause</Button>
   }
 
   whichButton = () => {
     if(this.state.timeUp) return <Button primary onClick={this.resetTimer}>Reset</Button>
-    if(this.state.isShown === 'hidden') return <Button primary className='button_basic3'>Pause</Button>
+    if(this.state.isShown === 'hidden') return this.pauseUNPAUSE()
     return <Button content='Start' primary className='button_basic3' disabled={this.state.isStartDisabled} onClick={this.startTimer}/>
   }
 
@@ -169,8 +193,9 @@ class Timer extends Component {
 
   render(){
     const audiosrc = 'https://archive.org/download/StarWarsTheImperialMarchDarthVadersTheme/Star%20Wars-%20The%20Imperial%20March%20(Darth%20Vader\'s%20Theme).mp3'
+
     return(
-      <div>
+      <div className='timer_div'>
       <Draggable
         axis='both'
         handle=".handle"
@@ -180,7 +205,7 @@ class Timer extends Component {
         onDrag={this.handleDrag}
         onStop={this.handleStop}>
         <div>
-          <Sound url={audiosrc} playStatus={this.state.isPlaying} playFromPosition={9455} />
+          <Sound url={audiosrc} playStatus={this.state.isPlaying} position={this.state.playPosition} onPlaying={this.onPlaying}/>
           <Table basic inverted id='timer_table' className="handle">
             {this.load()}
           </Table>

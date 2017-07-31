@@ -133,7 +133,7 @@ class EditRecipeModal extends Component{
           />
         </Form.Field>
         <Form.Field>
-          <TextArea autoHeight placeholder='notes' name='note' value={this.state.note}
+          <TextArea style={{ minHeight: 100 }} placeholder='notes' name='note' value={this.state.note}
             onChange={this.handleOnChange}
           />
         </Form.Field>

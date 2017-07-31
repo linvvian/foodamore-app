@@ -6,7 +6,10 @@ class NotificationsController < ApplicationController
   private
   def send_message(phone_number, message)
     twilio_number = '+12015286979'
-    @client = Twilio::REST::Client.new twilio_sid, twilio_api_token
+    sid = Credential.twilio_sid
+    token = Credential.twilio_api_token
+    byebug
+    @client = Twilio::REST::Client.new sid, token
     message = @client.messages.create(
       from: twilio_number,
       to: phone_number,

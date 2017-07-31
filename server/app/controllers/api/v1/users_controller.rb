@@ -18,11 +18,13 @@ class Api::V1::UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     if user.authenticate(params[:user][:old_password])
+
       if user.update(user_params(:name, :email, :password))
         render json: user
       else
-        render json: { message: user.erros.full_message }
+        render json: { message: user.errors.full_message }
       end
+      
     else
       render json: { status: 401, message: user.errors.full_message }
     end

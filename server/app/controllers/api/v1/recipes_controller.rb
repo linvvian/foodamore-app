@@ -18,9 +18,8 @@ class Api::V1::RecipesController < ApplicationController
       params[:recipe][:ingredients].each do |ingredient|
         Ingredient.create(name: ingredient, recipe: recipe)
       end
-
-      user = User.find(params[:user_id])
-      user.recipes << recipe
+      
+      User.find(params[:user_id]).recipes << recipe
       render json: recipe
     else
       render json: { message: recipe.errors.full_message }
