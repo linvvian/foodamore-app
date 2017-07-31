@@ -122,6 +122,7 @@ class NewRecipeForm extends Component {
               allowAdditions
               onAddItem={this.handleAddition}
               onChange={this.handleTagChange}
+              value={this.state.tags}
             />
           </Form.Field>
           <Button primary className='button_basic' type='submit'>Save New Recipe</Button>

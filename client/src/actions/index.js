@@ -17,6 +17,7 @@ import {
   FETCH_USER_LISTS,
   FETCH_API_RECIPES,
   CLEAR_API,
+  SET_RECIPE,
 } from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
@@ -138,6 +139,13 @@ export const fetchRecipe = (id) => {
         payload: response.data,
       })
     })
+  }
+}
+
+export const setRecipe = (recipe) => {
+  return {
+    type: SET_RECIPE,
+    recipe: recipe,
   }
 }
 

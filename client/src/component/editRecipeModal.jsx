@@ -20,9 +20,9 @@ class EditRecipeModal extends Component{
     options: [],
   }
 
-  renderOptionsFiltered = () => {
+  renderOptionsFiltered = (recipe) => {
     const allOptions = this.props.tags.map(tag => tag.name)
-    const allTags = this.props.recipe.tags.map(tag => tag.name)
+    const allTags = recipe.tags.map(tag => tag.name)
     const filteredOptions = allOptions.filter(tag => !allTags.includes(tag))
     const options = filteredOptions.map(option => {
       const properOption = this.props.tags.find(tag => tag.name === option)
@@ -32,7 +32,7 @@ class EditRecipeModal extends Component{
   }
 
   componentDidMount = () => {
-    const options = this.renderOptionsFiltered()
+    const options = this.renderOptionsFiltered(this.props.recipe)
     this.setState({
       name: this.props.recipe.name,
       image: this.props.recipe.image,
@@ -42,6 +42,20 @@ class EditRecipeModal extends Component{
       options: options,
       ingredients: this.props.recipe.ingredients,
       instructions: this.props.recipe.instructions,
+    })
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const options = this.renderOptionsFiltered(nextProps.recipe)
+    this.setState({
+      name: nextProps.recipe.name,
+      image: nextProps.recipe.image,
+      note: nextProps.recipe.note,
+      video: nextProps.recipe.video,
+      tags: nextProps.recipe.tags,
+      options: options,
+      ingredients: nextProps.recipe.ingredients,
+      instructions: nextProps.recipe.instructions,
     })
   }
 

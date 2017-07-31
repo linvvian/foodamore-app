@@ -1,6 +1,7 @@
 import {
   FETCH_ONE_RECIPE,
   UPDATE_RECIPE,
+  SET_RECIPE,
 } from '../actions/types'
 
 export default (state={}, action) => {
@@ -8,6 +9,8 @@ export default (state={}, action) => {
     case FETCH_ONE_RECIPE:
       return action.payload
     case UPDATE_RECIPE:
+      return action.recipe
+    case SET_RECIPE:
       return action.recipe
     default:
       return state

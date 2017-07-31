@@ -15,7 +15,12 @@ class RecipeDetail extends Component {
   }
 
   componentWillMount = () => {
+    this.props.fetchTags()
     this.props.fetchRecipe(this.props.match.params.recipeId)
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.props.setRecipe(nextProps.recipe)
   }
 
   onSubmitEdit = (recipe) => {
@@ -55,7 +60,7 @@ class RecipeDetail extends Component {
 
     return (
       <div className='detailpage_container'>
-        <EditRecipeModal onSubmitEdit={this.onSubmitEdit}/>
+        <EditRecipeModal onSubmitEdit={this.onSubmitEdit} />
         <ShowInstructionsModal />
         <h1>{this.props.recipe.name.toUpperCase()}</h1>
         <Divider />
