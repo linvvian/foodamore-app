@@ -8,8 +8,11 @@ import * as actions from '../actions'
 import EditRecipeModal from '../component/editRecipeModal'
 import ShowInstructionsModal from '../component/cookingInstructions_modal'
 import SendText from '../component/sendText_modal'
+import ConvertWindow from '../component/conversion_iframe'
 
 class RecipeDetail extends Component {
+  state = { showConversion: false }
+
   static contextTypes = {
     router: PropTypes.object
   }
@@ -45,6 +48,14 @@ class RecipeDetail extends Component {
     }
   }
 
+  showConversion = () => {
+    if (this.state.showConversion) return <Grid.Column width={2}><ConvertWindow /></Grid.Column>
+  }
+
+  toggleShow = () => {
+    this.setState({ showConversion: !this.state.showConversion })
+  }
+
   loadRecipeDetails = () => {
     if(!this.props.recipe.instructions || !this.props.recipe.ingredients) return <Loader active />
 
@@ -72,8 +83,20 @@ class RecipeDetail extends Component {
         <Divider hidden />
         {this.showNotes()}
         <Segment color='teal'>
-          <SendText />
-          <ul>{ingredients}</ul>
+          <Grid>
+            <Grid.Column width={7}>
+              <ul>{ingredients}</ul>
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <Grid.Row>
+                <SendText />
+              </Grid.Row>
+              <Grid.Row>
+                <Button primary floated='right' id='convert_button' className='button_basic' onClick={this.toggleShow}>Convert</Button>
+              </Grid.Row>
+            </Grid.Column>
+            {this.showConversion()}
+          </Grid>
         </Segment>
         <Segment color='teal'>
           <Table basic='very'><Table.Body>{instructions}</Table.Body></Table>

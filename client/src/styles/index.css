@@ -211,3 +211,7 @@ li {
   box-shadow: 0 3px #666 !important;
   transform: translateY(3px);
 }
+
+#convert_button {
+  margin-top: 10px;
+}
