@@ -4,7 +4,7 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.new(recipe_params(:name, :image, :video, :note))
+    recipe = Recipe.new(recipe_params(:name, :source, :image, :video, :note))
 
     if recipe.save
       params[:recipe][:tags].each do |tag|
@@ -18,7 +18,7 @@ class Api::V1::RecipesController < ApplicationController
       params[:recipe][:ingredients].each do |ingredient|
         Ingredient.create(name: ingredient, recipe: recipe)
       end
-      
+
       User.find(params[:user_id]).recipes << recipe
       render json: recipe
     else
@@ -47,7 +47,7 @@ class Api::V1::RecipesController < ApplicationController
       ingredientsUpdated.push(Ingredient.where({name: ingredient[:name], recipe: recipe}).first_or_create(name: ingredient, recipe: recipe))
     end
 
-    updatedRecipe = recipe_params(:name, :image, :video, :note)
+    updatedRecipe = recipe_params(:name, :source, :image, :video, :note)
     updatedRecipe[:tags] = tagsUpdated
     updatedRecipe[:instructions] = instructionsUpdated
     updatedRecipe[:ingredients] = ingredientsUpdated

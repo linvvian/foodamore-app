@@ -83,7 +83,6 @@ class Timer extends Component {
   }
 
   onFocus = (event) => {
-    const { name } = event.target
     event.target.value = ''
   }
 

@@ -35,11 +35,12 @@ canvas {
   height: 80vh;
   width: 180vh;
   margin: 20px;
-  margin-left: 60px;
+  margin-left: 0;
 }
 
 .profile_content_container {
-  padding: 40px;
+  padding: 60px;
+  padding-left: 80px;
 }
 
 .update_form {

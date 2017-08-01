@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Form, Button, Input, TextArea, Dropdown } from 'semantic-ui-react'
+import RecipeScrape from './scrapeRecipe_component'
 
 class NewRecipeForm extends Component {
   state = {
     name: '',
+    source: '',
     image: '',
     note: '',
     ingredients: [],
@@ -14,6 +16,7 @@ class NewRecipeForm extends Component {
     options: [],
     ingredientsText: '',
     instructionsText: '',
+    loading: false,
   }
 
   componentDidMount = () => {
@@ -43,8 +46,10 @@ class NewRecipeForm extends Component {
 
   handleOnSubmitRecipe = (event) => {
     event.preventDefault()
+    if (!this.state.name || !this.state.ingredients[0] || !this.state.instructions[0]) return
     const recipe = {
       name: this.state.name,
+      source: this.state.source,
       image: this.state.image,
       note: this.state.note,
       ingredients: this.state.ingredients.filter(ingredient => ingredient.trim() !== ''),
@@ -57,6 +62,7 @@ class NewRecipeForm extends Component {
     this.setState({
       ...this.state,
       name: '',
+      source: '',
       image: '',
       note: '',
       ingredients: [],
@@ -78,6 +84,19 @@ class NewRecipeForm extends Component {
     this.setState({ tags: value })
   }
 
+  getFromLink = (event, ingredients, instructions, source) => {
+    event.preventDefault()
+    if (!ingredients && !instructions) return
+    let gredients = ingredients ? ingredients : [],
+        structions = instructions ? instructions : []
+    this.setState({
+      ingredients: gredients,
+      instructions: structions,
+      ingredientsText: gredients.join('\n'),
+      instructionsText: structions.join('\n'),
+    })
+  }
+
   render(){
     return(
       <div className='container'>
@@ -86,6 +105,14 @@ class NewRecipeForm extends Component {
             <Input type='text' placeholder='name' name='name' value={this.state.name}
               onChange={this.handleOnChange} required={true}
             />
+          </Form.Field>
+          <Form.Field>
+            <Input type='text' placeholder='source link' name='source' value={this.state.source}
+              onChange={this.handleOnChange} required={true}
+            />
+          </Form.Field>
+          <Form.Field>
+            <RecipeScrape getFromLink={this.getFromLink} source={this.state.source}/>
           </Form.Field>
           <Form.Field>
             <Input type='text' placeholder='image link' name='image' value={this.state.image}

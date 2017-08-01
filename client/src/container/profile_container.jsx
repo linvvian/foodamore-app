@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Button, Sidebar, Icon, Image, Segment, Header } from 'semantic-ui-react'
+import { Menu, Button, Sidebar, Icon } from 'semantic-ui-react'
 import ProfileForm from '../component/profile_form'
 import CanvasComponent from '../component/fireworks'
 
@@ -19,7 +19,6 @@ class Profile extends Component {
         return <ProfileForm />
       case 'special':
         return this.showFireworks()
-        break;
       default:
 
     }

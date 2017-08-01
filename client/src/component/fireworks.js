@@ -91,7 +91,6 @@ class CanvasComponent extends Component {
   makeNode(x, y, radius, color, partCount) {
 
     const rad = Math.PI / 180;
-    const PI2 = Math.PI * 2;
     var ttt = 0;
 
     radius = radius || 0;

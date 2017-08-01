@@ -11,6 +11,7 @@ class EditRecipeModal extends Component{
 
   state = {
     name: '',
+    source: '',
     image: '',
     note: '',
     ingredients: [],
@@ -35,6 +36,7 @@ class EditRecipeModal extends Component{
     const options = this.renderOptionsFiltered(this.props.recipe)
     this.setState({
       name: this.props.recipe.name,
+      source: this.props.recipe.source,
       image: this.props.recipe.image,
       note: this.props.recipe.note,
       video: this.props.recipe.video,
@@ -49,6 +51,7 @@ class EditRecipeModal extends Component{
     const options = this.renderOptionsFiltered(nextProps.recipe)
     this.setState({
       name: nextProps.recipe.name,
+      source: this.props.recipe.source,
       image: nextProps.recipe.image,
       note: nextProps.recipe.note,
       video: nextProps.recipe.video,
@@ -138,6 +141,11 @@ class EditRecipeModal extends Component{
       <Form>
         <Form.Field>
           <Input type='text' placeholder='name' name='name' value={this.state.name}
+            onChange={this.handleOnChange} required={true}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Input type='text' placeholder='source link' name='source' value={this.state.source}
             onChange={this.handleOnChange} required={true}
           />
         </Form.Field>

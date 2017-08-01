@@ -31,6 +31,11 @@ class RecipeDetail extends Component {
     this.props.fetchRecipe(this.props.match.params.recipeId)
   }
 
+  showSource = () => {
+    if(!this.props.recipe.source) return
+    return <a href={this.props.recipe.source} target='_blank'><Button primary className='button_basic'><Icon name='linkify'/>Go To Source</Button></a>
+  }
+
   showNotes = () => {
     if(!this.props.recipe.note) return
     return <Segment color='teal'>{this.props.recipe.note}</Segment>
@@ -129,7 +134,10 @@ class RecipeDetail extends Component {
               {this.loadTags()}
             </Grid.Column>
             <Grid.Column width={12}>
-                {this.loadRecipeDetails()}
+              {this.loadRecipeDetails()}
+            </Grid.Column>
+            <Grid.Column width={2}>
+              {this.showSource()}
             </Grid.Column>
           </Grid.Row>
         </Grid>

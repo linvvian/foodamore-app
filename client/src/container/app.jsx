@@ -9,6 +9,7 @@ import RecipeDetail from './recipeDetail_container'
 import DashBoard from '../container/dashboard_container'
 import RequireAuth from '../component/auth/require_auth'
 import Profile from './profile_container'
+import RecipeScrape from '../component/scrapeRecipe_component'
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path='/lists/:listId' render={() => {
             return <DashBoard activeItem='lists' />
           }} />
+          <Route path='/test' component={RecipeScrape} />
         </div>
       </Router>
     )
