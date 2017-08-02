@@ -121,11 +121,11 @@ class Timer extends Component {
   pauseUNPAUSE = () => {
     if (this.state.isPaused)
       return <Button primary className='button_basic3' onClick={this.pauseTimer}>Start</Button>
-    return <Button primary className='button_basic3' onClick={this.pauseTimer}>Pause</Button>
+    return <Button primary className='button_basic2' onClick={this.pauseTimer}>Pause</Button>
   }
 
   whichButton = () => {
-    if(this.state.timeUp) return <Button primary onClick={this.resetTimer}>Reset</Button>
+    if(this.state.timeUp) return <Button primary className='button_basic' onClick={this.resetTimer}>Stop</Button>
     if(this.state.isShown === 'hidden') return this.pauseUNPAUSE()
     return <Button content='Start' primary className='button_basic3' disabled={this.state.isStartDisabled} onClick={this.startTimer}/>
   }

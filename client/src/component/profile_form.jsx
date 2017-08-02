@@ -95,7 +95,7 @@ class ProfileForm extends Component {
 
   render(){
     return(
-      <div>
+      <div id='profile_form_div'>
         {this.load()}
         <Message warning hidden={this.state.showAlert}><Message.Header>{this.state.message}</Message.Header></Message>
       </div>

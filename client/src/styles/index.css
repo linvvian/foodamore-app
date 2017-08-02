@@ -43,10 +43,14 @@ canvas {
   padding-left: 80px;
 }
 
+#profile_form_div {
+  margin-left: 100px;
+}
+
 .update_form {
   margin: 0 200px;
   background: rgba(255, 255, 242, 0.5) !important;
-  padding: 100px 300px;
+  padding: 100px 200px;
 }
 
 .navbar_override {
@@ -107,6 +111,11 @@ canvas {
 .recipecard_image {
   height: 250px;
   width: 300px;
+}
+
+.showImage {
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .timer_div {
@@ -215,4 +224,18 @@ li {
 
 #convert_button {
   margin-top: 10px;
+}
+
+#error404 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -285px;
+  margin-top: -190px;
+}
+
+#page404 {
+  text-align: center;
+  color: #FFFFFF;
+  margin: 100px;
 }

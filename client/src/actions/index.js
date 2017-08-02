@@ -32,6 +32,7 @@ export function signinUser ({ email, password }) {
       localStorage.setItem('jwt', response.data.jwt)
       localStorage.setItem('id', response.data.id)
     })
+    .catch(error => dispatch(authError('Username or password incorrect')) )
   }
 }
 

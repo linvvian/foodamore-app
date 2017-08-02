@@ -8,7 +8,6 @@ class NotificationsController < ApplicationController
     twilio_number = '+12015286979'
     sid = Credential.twilio_sid
     token = Credential.twilio_api_token
-    byebug
     @client = Twilio::REST::Client.new sid, token
     message = @client.messages.create(
       from: twilio_number,

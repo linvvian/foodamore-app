@@ -11,11 +11,7 @@ import SendText from '../component/sendText_modal'
 import ConvertWindow from '../component/conversion_iframe'
 
 class RecipeDetail extends Component {
-  state = { showConversion: false }
-
-  static contextTypes = {
-    router: PropTypes.object
-  }
+  state = { showConversion: false, }
 
   componentWillMount = () => {
     this.props.fetchTags()
@@ -31,6 +27,7 @@ class RecipeDetail extends Component {
   onSubmitEdit = (recipe) => {
     this.props.updateRecipe(recipe)
     this.props.fetchRecipe(this.props.match.params.recipeId)
+
   }
 
   showSource = () => {
@@ -64,7 +61,6 @@ class RecipeDetail extends Component {
   }
 
   loadRecipeDetails = () => {
-    console.log('loader stuck checking', this.props.recipe)
     if(!this.props.recipe.instructions && !this.props.recipe.ingredients) return <Loader active />
 
     const instructions = this.props.recipe.instructions.map(instruction => {

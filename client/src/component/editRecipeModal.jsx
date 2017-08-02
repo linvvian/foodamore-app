@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { Button, Header, Icon, Modal, Form, Input, TextArea, Dropdown, Label } from 'semantic-ui-react'
 import { fetchTags } from '../actions'
 
 class EditRecipeModal extends Component{
-  static contextTypes = {
-    router: PropTypes.object
-  }
+  static propTypes = {
+      match: PropTypes.object.isRequired,
+      location: PropTypes.object.isRequired,
+      history: PropTypes.object.isRequired
+    }
 
   state = {
     name: '',
@@ -18,6 +21,7 @@ class EditRecipeModal extends Component{
     instructions: [],
     video: '',
     tags: [],
+    addTags: [],
     options: [],
   }
 
@@ -113,7 +117,7 @@ class EditRecipeModal extends Component{
   handleAddition = (e, { value }) => {
     this.setState({
       options: [{ text: value, value }, ...this.state.options],
-      tags: [{ name: value }, ...this.state.tags],
+      tags: [...this.state.tags, { name: value }],
     })
   }
 
@@ -125,6 +129,10 @@ class EditRecipeModal extends Component{
     })
   }
 
+  handleTagChange = (e, { value }) => {
+    this.setState({ addTags: value })
+  }
+
   handleOnSubmitEdit = (event) => {
     let recipe = {
       ...this.state,
@@ -133,7 +141,7 @@ class EditRecipeModal extends Component{
       id: this.props.recipe.id,
     }
     this.props.onSubmitEdit(recipe)
-    this.context.router.history.push(`/recipes/${this.props.recipe.id}`)
+    this.props.history.push(`/recipes/${this.props.recipe.id}`)
   }
 
   renderEditForm = () => {
@@ -214,4 +222,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditRecipeModal)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditRecipeModal))

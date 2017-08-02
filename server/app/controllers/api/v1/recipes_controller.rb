@@ -20,6 +20,7 @@ class Api::V1::RecipesController < ApplicationController
       end
 
       User.find(params[:user_id]).recipes << recipe
+      recipe.users << User.find(params[:user_id])
       render json: recipe
     else
       render json: { message: recipe.errors.full_message }
@@ -36,6 +37,9 @@ class Api::V1::RecipesController < ApplicationController
     tagsUpdated = []
     params[:recipe][:tags].each do |tag|
       tagsUpdated.push(Tag.find_or_create_by(name: tag[:name]))
+    end
+    params[:recipe][:addTags].each do |tag|
+      tagsUpdated.push(Tag.find_or_create_by(name: tag))
     end
     instructionsUpdated = []
     params[:recipe][:instructions].each.with_index do |instruction, index|

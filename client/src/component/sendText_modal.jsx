@@ -7,8 +7,18 @@ import { sendSms } from '../adapter/twilioClient'
 class SendText extends Component {
   state = { open: false, ingredientsList: '', }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     const ingredientsListed = this.props.ingredients.map(item => item.name)
+    const list = ingredientsListed.join('\n')
+    this.setState({
+      ingredientsList: list,
+    })
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if(this.props.ingredients.toString() === nextProps.ingredients.toString() ) return
+
+    const ingredientsListed = nextProps.ingredients.map(item => item.name)
     const list = ingredientsListed.join('\n')
     this.setState({
       ingredientsList: list,

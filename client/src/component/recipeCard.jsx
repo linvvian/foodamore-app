@@ -6,7 +6,7 @@ const RecipeCard = ({ id, name, note, ingredients, instructions, image, video })
   const showIngredients = ingredients.map(ingredient => <li key={ingredient.id}>{ingredient.name}</li>)
   const showInstructions = instructions.map(instruction => <li key={instruction.id}>{instruction.step}</li>)
   const noImageLink = image || 'https://www.askideas.com/media/41/I-Just-Wanted-To-Eat-but-You-Lit-My-Food-On-Fire-Funny-Food-Meme-Image.jpg'
-  const showImage = image || 'https://www.pethub.com/sites/default/files//first-world-dog-problems-meme-2.jpg'
+  const showImage = image || 'http://funnystack.com/wp-content/uploads/2015/01/Funny-Dog-35.jpg'
 
   return(
     <Modal trigger={
@@ -33,6 +33,7 @@ const RecipeCard = ({ id, name, note, ingredients, instructions, image, video })
               src={showImage}
               wrapped
               floated='left'
+              className='showImage'
             />
           </Grid.Column>
           <Grid.Column width={9}>

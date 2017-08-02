@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Loader, Card } from 'semantic-ui-react'
+import { Container, Loader, Card, Header, Icon } from 'semantic-ui-react'
 import SearchBar from '../component/searchbar'
 import RecipeCard from '../component/recipeCard'
 import * as actions from '../actions'
@@ -15,10 +15,16 @@ class RecipesContainer extends Component {
 
   loading = () => {
     if (this.props.recipes){
-      return this.props.recipes.map(recipe => <RecipeCard key={recipe.id} {...recipe} />)
+      return this.props.recipes.map(recipe => <RecipeCard key={`${recipe.id}-${recipe.name}`} {...recipe} />)
     } else {
       return <Loader active />
     }
+  }
+
+  message = () => {
+    if (this.props.recipes.length === 0)
+      return <Header>Empty!! Discover or Add a recipe! <Icon name='pointing left'></Icon></Header>
+    return <Card.Group>{this.loading()}</Card.Group>
   }
 
   render(){
@@ -28,9 +34,7 @@ class RecipesContainer extends Component {
           <SearchBar />
         </div>
         <Container className='container' fluid>
-          <Card.Group>
-            {this.loading()}
-          </Card.Group>
+          {this.message()}
         </Container>
       </div>
     )

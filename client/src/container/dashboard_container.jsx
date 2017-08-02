@@ -10,7 +10,7 @@ import * as actions from '../actions'
 
 class DashBoard extends Component {
   state = {
-    activeItem: this.props.activeItem || 'all recipes'
+    activeItem: this.props.activeItem || 'your recipes'
   }
 
   componentDidMount = () => {
@@ -41,7 +41,7 @@ class DashBoard extends Component {
 
   loadItem = () => {
     switch (this.state.activeItem) {
-      case 'all recipes':
+      case 'your recipes':
         return <RecipesContainer />
       case 'new recipe':
         return <NewRecipeForm submitNewRecipe={this.handleRecipeSubmit}/>

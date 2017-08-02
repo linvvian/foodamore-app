@@ -26,7 +26,7 @@ class NewListModal extends Component {
   render(){
     const recipes = this.props.recipes.map(recipe => <Checkbox label={recipe.name} value={recipe.id} onChange={this.checkedBox} className='checkbox_override'/>)
     return(
-      <Modal trigger={<Button primary className='button_basic' id='add_list_button' icon='add' />} closeIcon='close'>
+      <Modal trigger={<Button primary className='button_basic' id='add_list_button'><Icon name='add' />Create a List</Button>} closeIcon='close'>
         <Header icon='edit' content='New List' />
         <Modal.Content>
           <Form>
