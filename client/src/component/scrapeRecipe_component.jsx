@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Form, Input, Button } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 class RecipeScrape extends Component {
-  state = { input: this.props.source, loading: false }
+  state = { input: '', loading: false }
 
   handleSubmit = (event) => {
+    if (!this.state.input) return
     event.preventDefault()
     this.setState({ loading: true })
     axios.post('http://localhost:3003/fetch', {
@@ -25,17 +26,13 @@ class RecipeScrape extends Component {
 
   render(){
     return(
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <Input
-            loading={this.state.loading}
-            action={{ labelPosition: 'right', icon: 'search', content: 'Get'}}
-            placeholder='get from source link'
-            value={this.state.input}
-            onChange={this.handleChange}
-          />
-        </Form>
-      </div>
+      <Input
+        loading={this.state.loading}
+        action={{ labelPosition: 'right', icon: 'search', content: 'Get', onClick: this.handleSubmit, primary: true, className: 'button_basic' }}
+        placeholder='get from source link'
+        value={this.state.input}
+        onChange={this.handleChange}
+      />
     )
   }
 }

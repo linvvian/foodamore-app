@@ -23,7 +23,9 @@ class RecipeDetail extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    this.props.setRecipe(nextProps.recipe)
+    if (nextProps.recipe.ingredients && nextProps.recipe.instructions) {
+      this.props.setRecipe(nextProps.recipe)
+    }
   }
 
   onSubmitEdit = (recipe) => {
@@ -38,7 +40,7 @@ class RecipeDetail extends Component {
 
   showNotes = () => {
     if(!this.props.recipe.note) return
-    return <Segment color='teal'>{this.props.recipe.note}</Segment>
+    return <Segment color='teal'>{this.props.recipe.note.replace('\n', '\r')}</Segment>
   }
 
   showVideo = () => {
@@ -62,7 +64,8 @@ class RecipeDetail extends Component {
   }
 
   loadRecipeDetails = () => {
-    if(!this.props.recipe.instructions || !this.props.recipe.ingredients) return <Loader active />
+    console.log('loader stuck checking', this.props.recipe)
+    if(!this.props.recipe.instructions && !this.props.recipe.ingredients) return <Loader active />
 
     const instructions = this.props.recipe.instructions.map(instruction => {
       return(

@@ -90,10 +90,11 @@ class NewRecipeForm extends Component {
     let gredients = ingredients ? ingredients : [],
         structions = instructions ? instructions : []
     this.setState({
+      source: source,
       ingredients: gredients,
       instructions: structions,
-      ingredientsText: gredients.join('\n'),
-      instructionsText: structions.join('\n'),
+      ingredientsText: gredients.join('\r\n'),
+      instructionsText: structions.join('\r\n'),
     })
   }
 
@@ -112,7 +113,7 @@ class NewRecipeForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <RecipeScrape getFromLink={this.getFromLink} source={this.state.source}/>
+            <RecipeScrape getFromLink={this.getFromLink} />
           </Form.Field>
           <Form.Field>
             <Input type='text' placeholder='image link' name='image' value={this.state.image}

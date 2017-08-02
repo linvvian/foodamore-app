@@ -44,15 +44,14 @@ class Api::V1::RecipesController < ApplicationController
 
     ingredientsUpdated = []
     params[:recipe][:ingredients].each do |ingredient|
-      ingredientsUpdated.push(Ingredient.where({name: ingredient[:name], recipe: recipe}).first_or_create(name: ingredient, recipe: recipe))
+      ingredientsUpdated.push(Ingredient.where({name: ingredient[:name], recipe: recipe}).first_or_create(name: ingredient[:name], recipe: recipe))
     end
 
-    updatedRecipe = recipe_params(:name, :source, :image, :video, :note)
-    updatedRecipe[:tags] = tagsUpdated
-    updatedRecipe[:instructions] = instructionsUpdated
-    updatedRecipe[:ingredients] = ingredientsUpdated
+    recipe.update_attributes(tags: tagsUpdated)
+    recipe.update_attributes(instructions: instructionsUpdated)
+    recipe.update_attributes(ingredients: ingredientsUpdated)
 
-    if recipe.update(updatedRecipe)
+    if recipe.update_attributes(recipe_params(:name, :source, :image, :video, :note))
       render json: { status: 200, message: "Recipe Updated", recipe: recipe }
     else
       render json: { message: recipe.errors.full_message }

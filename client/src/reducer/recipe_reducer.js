@@ -9,7 +9,7 @@ export default (state={}, action) => {
     case FETCH_ONE_RECIPE:
       return action.payload
     case UPDATE_RECIPE:
-      return action.recipe
+      return state
     case SET_RECIPE:
       return action.recipe
     default:

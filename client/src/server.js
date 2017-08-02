@@ -28,9 +28,9 @@ function callback(response, html) {
     $('div').each(function(i, element){
       divNames.push($(this).attr('class'))
     })
-    let ulCN = ulNames.filter(e => !!e).find(value => value.includes('ingredient') && value.includes('list'))
+    let ulCN = ulNames.filter(e => !!e).find(value => value.toLowerCase().includes('ingredient') && value.toLowerCase().includes('list'))
     ulCN = ulCN && ulCN.includes(' ') ? ulCN.split(' ')[0] : ulCN
-    let divCN = divNames.filter(e => !!e).find(value => value.includes('ingredient'))
+    let divCN = divNames.filter(e => !!e).find(value => value.toLowerCase().includes('ingredient'))
     let ind = ulCN ? $(`ul.${ulCN}`).text() : $(`div.${divCN} ul`).text()
     let indS = ind.replace(/\s+/g, ' ')
     let ingredients = indS.match(/(\d+[\/\d. ]*|\d).*?(?=(\d+[\/\d. ]*|\d))/g)
@@ -39,9 +39,9 @@ function callback(response, html) {
     $('ol').each(function(i, element){
       olNames.push($(this).attr('class'))
     })
-    let olCN = olNames.filter(e => !!e).find(value => value.includes('direction') && value.includes('list'))
+    let olCN = olNames.filter(e => !!e).find(value => value.toLowerCase().includes('direction') && value.toLowerCase().includes('list') || value.toLowerCase().includes('instruction'))
     olCN = olCN && olCN.includes(' ') ? olCN.split(' ')[1] : olCN
-    let divDirCN = divNames.filter(e => !!e).find(value => value.includes('direction'))
+    let divDirCN = divNames.filter(e => !!e).find(value => value.toLowerCase().includes('direction') || value.toLowerCase().includes('instruction'))
     divDirCN = divDirCN && divDirCN.includes(' ') ? divDirCN.split(' ')[0] : divDirCN
     let dirct = olCN ? $(`ol.${olCN}`).text() : $(`div.${divDirCN} ol`).text()
     let instructions = dirct.split(/\n/).map(step => step.trim()).filter(value => value !== '')
@@ -50,9 +50,6 @@ function callback(response, html) {
 }
 
 const scrapeRecipe = (url)=>{
-  let options = {
-    url: url,
-  }
   axios.get(`${url}`)
   .then(response => {
     callback(response, response.data)
@@ -66,12 +63,15 @@ app.get('/', function(req, res) {
 
 app.post('/fetch', function(req, res) {
   var input = req.body.input
-  console.log('inside fetch', input)
   scrapeRecipe(input)
-  console.log('after scraping')
   setTimeout(() => {
+    console.log('BEFORE SENDING', results)
     res.send(results)
-  }, 500)
+    results = []
+  }, 1000)
+  setTimeout(() => {
+    console.log('AFTER SENDING', results)
+  }, 1500)
 })
 
 app.listen(3003, function(){

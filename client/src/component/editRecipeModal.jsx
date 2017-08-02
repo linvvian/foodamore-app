@@ -74,9 +74,9 @@ class EditRecipeModal extends Component{
     const name = data.type ? 'ingredients' : 'instructions'
     const array = data.type ? [...this.state.ingredients] : [...this.state.instructions]
     if(name === 'instructions'){
-      array[index].step = value
+      typeof(array[index]) === 'object' ? array[index]['step'] = value : array[index] = { step: value }
     } else {
-      array[index].name = value
+      typeof(array[index]) === 'object' ? array[index]['name'] = value : array[index] = { name: value }
     }
     this.setState({
       [name]: array,
