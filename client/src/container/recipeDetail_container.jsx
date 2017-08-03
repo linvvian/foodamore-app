@@ -5,6 +5,7 @@ import { Grid, Loader, Button, Divider, Segment, Table, Image, Icon, Embed } fro
 import PropTypes from 'prop-types'
 
 import * as actions from '../actions'
+import { sortOrder } from '../helpers'
 import EditRecipeModal from '../component/editRecipeModal'
 import ShowInstructionsModal from '../component/cookingInstructions_modal'
 import SendText from '../component/sendText_modal'
@@ -12,6 +13,10 @@ import ConvertWindow from '../component/conversion_iframe'
 
 class RecipeDetail extends Component {
   state = { showConversion: false, }
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
   componentWillMount = () => {
     this.props.fetchTags()
@@ -63,9 +68,9 @@ class RecipeDetail extends Component {
   loadRecipeDetails = () => {
     if(!this.props.recipe.instructions && !this.props.recipe.ingredients) return <Loader active />
 
-    const instructions = this.props.recipe.instructions.map(instruction => {
+    const instructions = this.props.recipe.instructions.sort(sortOrder).map(instruction => {
       return(
-      <Table.Row key={instruction.order}>
+      <Table.Row key={`${instruction.order}-${instruction.step}`}>
         <Table.Cell width={2}>Step {instruction.order}:</Table.Cell>
         <Table.Cell>{instruction.step}</Table.Cell>
       </Table.Row>

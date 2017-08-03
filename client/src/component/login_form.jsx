@@ -34,6 +34,7 @@ class LoginForm extends Component {
   handleOnSubmit = (event) => {
     event.preventDefault()
     this.props.signinUser(this.state)
+    this.props.setUser(localStorage.getItem('id'))
   }
 
   renderAlert () {

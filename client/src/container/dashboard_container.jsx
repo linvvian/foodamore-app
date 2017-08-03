@@ -7,6 +7,7 @@ import NewRecipeForm from '../component/newRecipe_form'
 import ListContainer from './list_container'
 import DiscoverRecipeAPI from './recipe_api'
 import * as actions from '../actions'
+import { sortCallback } from '../helpers'
 
 class DashBoard extends Component {
   state = {
@@ -69,18 +70,6 @@ class DashBoard extends Component {
       </div>
     )
   }
-}
-
-const sortCallback = (a,b) => {
-  var nameA = a.name.toUpperCase()
-  var nameB = b.name.toUpperCase()
-  if (nameA < nameB) {
-    return -1
-  }
-  if (nameA > nameB) {
-    return 1
-  }
-  return 0
 }
 
 const mapStateToProps = (state) => {

@@ -22,7 +22,7 @@ class RecipesContainer extends Component {
   }
 
   message = () => {
-    if (this.props.recipes.length === 0)
+    if (this.props.user.recipes && this.props.user.recipes.length === 0)
       return <Header>Empty!! Discover or Add a recipe! <Icon name='pointing left'></Icon></Header>
     return <Card.Group>{this.loading()}</Card.Group>
   }
@@ -42,7 +42,7 @@ class RecipesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log('in list container mapping props', state)
   const recipes = state.searchTerm ? state.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(state.searchTerm) || recipe.ingredients.filter(ingredient => ingredient.name.includes(state.searchTerm))[0]
   }) : state.recipes

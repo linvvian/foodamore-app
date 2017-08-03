@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import { Button, Header, Icon, Modal, Form, Input, TextArea, Dropdown, Label } from 'semantic-ui-react'
 import { fetchTags } from '../actions'
+import { sortOrder } from '../helpers'
 
 class EditRecipeModal extends Component{
   static propTypes = {
@@ -94,7 +95,7 @@ class EditRecipeModal extends Component{
   }
 
   renderInstructionInputs = () => {
-    return this.state.instructions.map((instruction, index) => {
+    return this.state.instructions.sort(sortOrder).map((instruction, index) => {
       return <TextArea key={index} name={index} value={instruction.step} onChange={this.handleMultiInputChange} />
     })
   }
@@ -134,10 +135,13 @@ class EditRecipeModal extends Component{
   }
 
   handleOnSubmitEdit = (event) => {
+    const fixIngredients = this.state.ingredients.filter(ingredient => ingredient.name.trim() !== '')
+    const fixInstructions = this.state.instructions.filter(instruction => instruction.step.trim() !== '')
+    if (fixIngredients.length < 1 || fixInstructions.length < 1) return
     let recipe = {
       ...this.state,
-      ingredients: this.state.ingredients.filter(ingredient => ingredient.name.trim() !== ''),
-      instructions: this.state.instructions.filter(instruction => instruction.step.trim() !== ''),
+      ingredients: fixIngredients,
+      instructions: fixInstructions,
       id: this.props.recipe.id,
     }
     this.props.onSubmitEdit(recipe)

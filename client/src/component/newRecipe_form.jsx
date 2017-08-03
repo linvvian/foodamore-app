@@ -107,14 +107,16 @@ class NewRecipeForm extends Component {
               onChange={this.handleOnChange} required={true}
             />
           </Form.Field>
-          <Form.Field>
-            <Input type='text' placeholder='source link' name='source' value={this.state.source}
-              onChange={this.handleOnChange} required={true}
-            />
-          </Form.Field>
+          <Form.Group widths='equal'>
           <Form.Field>
             <RecipeScrape getFromLink={this.getFromLink} />
           </Form.Field>
+          <Form.Field>
+            <Input type='text' placeholder='source link' name='source' value={this.state.source}
+              onChange={this.handleOnChange}
+            />
+          </Form.Field>
+          </Form.Group>
           <Form.Field>
             <Input type='text' placeholder='image link' name='image' value={this.state.image}
               onChange={this.handleOnChange}

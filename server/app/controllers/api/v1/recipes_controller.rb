@@ -43,7 +43,11 @@ class Api::V1::RecipesController < ApplicationController
     end
     instructionsUpdated = []
     params[:recipe][:instructions].each.with_index do |instruction, index|
-      instructionsUpdated.push(Instruction.where({step: instruction[:step], recipe: recipe}).first_or_create(step: instruction[:step], order: index + 1, recipe: recipe))
+      foundNewInstruction = Instruction.where({step: instruction[:step], recipe: recipe}).first_or_create(step: instruction[:step], order: index + 1, recipe: recipe)
+      if foundNewInstruction[:order] != index + 1
+        foundNewInstruction.update_attribute(:order, index+1)
+      end
+      instructionsUpdated.push(foundNewInstruction)
     end
 
     ingredientsUpdated = []
@@ -51,9 +55,9 @@ class Api::V1::RecipesController < ApplicationController
       ingredientsUpdated.push(Ingredient.where({name: ingredient[:name], recipe: recipe}).first_or_create(name: ingredient[:name], recipe: recipe))
     end
 
-    recipe.update_attributes(tags: tagsUpdated)
-    recipe.update_attributes(instructions: instructionsUpdated)
-    recipe.update_attributes(ingredients: ingredientsUpdated)
+    Recipe.update(params[:id], tags: tagsUpdated)
+    Recipe.update(params[:id], instructions: instructionsUpdated.sort_by{ |t| t.order })
+    Recipe.update(params[:id], ingredients: ingredientsUpdated)
 
     if recipe.update_attributes(recipe_params(:name, :source, :image, :video, :note))
       render json: { status: 200, message: "Recipe Updated", recipe: recipe }
