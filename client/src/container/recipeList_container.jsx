@@ -42,7 +42,6 @@ class RecipesContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('in list container mapping props', state)
   const recipes = state.searchTerm ? state.recipes.filter(recipe => {
     return recipe.name.toLowerCase().includes(state.searchTerm) || recipe.ingredients.filter(ingredient => ingredient.name.includes(state.searchTerm))[0]
   }) : state.recipes

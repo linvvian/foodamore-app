@@ -14,6 +14,7 @@ class EditRecipeModal extends Component{
     }
 
   state = {
+    open: false,
     name: '',
     source: '',
     image: '',
@@ -25,6 +26,8 @@ class EditRecipeModal extends Component{
     addTags: [],
     options: [],
   }
+
+  openClose = () => this.setState((state, props) => { return { open: !state.open } } )
 
   renderOptionsFiltered = (recipe) => {
     const allOptions = this.props.tags.map(tag => tag.name)
@@ -145,7 +148,7 @@ class EditRecipeModal extends Component{
       id: this.props.recipe.id,
     }
     this.props.onSubmitEdit(recipe)
-    this.props.history.push(`/recipes/${this.props.recipe.id}`)
+    this.openClose()
   }
 
   renderEditForm = () => {
@@ -201,7 +204,12 @@ class EditRecipeModal extends Component{
 
   render(){
     return(
-      <Modal trigger={<Button className='button_basic' primary floated='right'><Icon name='edit' />Edit</Button>} closeIcon='close'>
+      <Modal trigger={<Button className='button_basic' primary floated='right'><Icon name='edit' />Edit</Button>}
+        closeIcon='close'
+        open={this.state.open}
+        onClose={this.openClose}
+        onOpen={this.openClose}
+      >
         <Header icon='archive' content='Edit Recipe' />
         <Modal.Content>
           {this.renderEditForm()}

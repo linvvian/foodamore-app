@@ -73,7 +73,12 @@ class DashBoard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let lists = state.tags.map(tag => {return { name: tag.name, recipes: state.recipes.filter(recipe => recipe.tags.map(t => t.name).includes(tag.name)) }})
+  let lists = state.tags.map(tag => {
+    let recipes = []
+    state.recipes.forEach(recipe => recipe.tags.map(t => t.name).includes(tag.name) && recipes.push(recipe) )
+    recipes = recipes.filter((thing, index, self) => self.findIndex((t) => {return t.id === thing.id && t.name === thing.name }) === index)
+    return { name: tag.name, recipes: recipes }
+  })
   lists = lists.filter(list => list.recipes[0] !== undefined).sort(sortCallback)
 
   return { user_id: state.auth.id, user: state.user, recipes: state.recipes, lists: lists }

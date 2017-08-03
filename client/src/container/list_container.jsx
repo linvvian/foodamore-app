@@ -49,8 +49,10 @@ class ListContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let combined = state.usersLists.map(list => { return { name: list.name, recipes: state.recipes.filter(recipe => list.recipes.includes(recipe.id)) }} )
-  return { user_id: state.user.id, lists: state.lists.concat(combined) }
+  let userLists = state.usersLists.map(list => { return { name: list.name, recipes: state.recipes.filter(recipe => list.recipes.includes(recipe.id)) }} )
+  let newSet = new Set(state.lists.concat(userLists))
+  let combined = [...newSet]
+  return { user_id: state.user.id, lists: combined }
 }
 
 export default connect(mapStateToProps, actions)(ListContainer)

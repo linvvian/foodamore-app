@@ -56,7 +56,6 @@ const scrapeRecipe = (url)=>{
   })
 }
 
-
 app.get('/', function(req, res) {
   res.send('Hello, World!')
 })
@@ -69,9 +68,6 @@ app.post('/fetch', function(req, res) {
     res.send(results)
     results = []
   }, 1000)
-  setTimeout(() => {
-    console.log('AFTER SENDING', results)
-  }, 1500)
 })
 
 app.listen(3003, function(){
