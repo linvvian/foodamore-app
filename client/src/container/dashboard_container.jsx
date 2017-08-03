@@ -44,11 +44,11 @@ class DashBoard extends Component {
     switch (this.state.activeItem) {
       case 'your recipes':
         return <RecipesContainer />
-      case 'new recipe':
+      case 'add a new recipe':
         return <NewRecipeForm submitNewRecipe={this.handleRecipeSubmit}/>
-      case 'lists':
+      case 'your lists':
         return <ListContainer />
-      case 'discover':
+      case 'discover new recipe':
         return <DiscoverRecipeAPI />
       default:
     }
@@ -60,7 +60,7 @@ class DashBoard extends Component {
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column width={3}>
-              <SideBar activeItem={this.activeItem} />
+              <SideBar activeItem={this.activeItem} currentItem={this.state.activeItem} />
             </Grid.Column>
             <Grid.Column width={12}>
               {this.loadItem()}

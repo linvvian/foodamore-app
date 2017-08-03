@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Menu, Icon } from 'semantic-ui-react'
 
 class NavBar extends Component {
-  state = { activeItem: 'blah', shouldShow: 'hidden'}
+  state = { activeItem: 'home', shouldShow: 'hidden'}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -18,7 +18,7 @@ class NavBar extends Component {
     return(
       <Menu inverted pointing secondary size='large' className='navbar_override'>
 
-        <Menu.Item><Icon name='food' /><Icon name='heart' /> FoodAmore</Menu.Item>
+        <NavLink to='/' ><Menu.Item><Icon name='food' /><Icon name='heart' /> FoodAmore</Menu.Item></NavLink>
         <NavLink to='/' >
           <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} >
             <Icon name='home' /> Home

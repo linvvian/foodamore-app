@@ -23,9 +23,9 @@ class App extends Component {
             <Route exact path='/login' component={LoginForm} />
             <Route exact path='/logout' component={LogOut} />
             <Route exact path='/profile' component={RequireAuth(Profile)} />
-            <Route path='/recipes/:recipeId' component={RecipeDetail}/>
+            <Route path='/recipes/:recipeId' component={RequireAuth(RecipeDetail)}/>
             <Route path='/lists/:listId' render={() => {
-              return <DashBoard activeItem='lists' />
+              return <DashBoard activeItem='your lists' />
             }} />
             <Route component={NoMatch} />
           </Switch>
