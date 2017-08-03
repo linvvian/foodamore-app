@@ -20,14 +20,19 @@ Users can search all of their recipes to find a specific recipe. Then what if yo
 
 
 ### Technologies
++ Reactjs
++ Ruby on Rails
++ ExpressJS Node
++ Redux
++ Semantic UI React
 + Twilio API
-+ Spoonacular API
-+ and possibly more
++ Food2Fork API
 
 ### States
 ```javascript
 state = {
   lists: [], //user lists used on welcome
+  user: {}, //user object
   recipes = [], //recipes to be shown, used by welcome & lists
   recipe = [], //single recipe used at in the recipe detail
   ingredients = [], //ingredients for a single recipe
