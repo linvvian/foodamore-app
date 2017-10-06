@@ -8,6 +8,9 @@ Users will have to sign up and login in order to create their own cook books to 
 
 Users can search all of their recipes to find a specific recipe. Then what if you have ingredients but are not sure what to make from them? The search functionality will also search for ingredients and find the recipes that use them. That way, users can be inspired with what they have available. Search multiple ingredients to get closer to the best suggestion. If you are still missing ingredients for a recipe, then you can create a shopping list for reference when you go grocery shopping.
 
+### Demo
+[Link to Video Demo on YouTube](https://youtu.be/z1cAI9B-fls)
+
 
 ### ER Diagrams
 [Link to ERD on LucidChart](https://www.lucidchart.com/invitations/accept/9148f2b5-0a24-4060-997c-1b6af3451852)
